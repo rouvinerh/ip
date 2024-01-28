@@ -1,4 +1,5 @@
 import java.util.Scanner;
+
 public class Duke {
     public static String horizontalLine = "__________________________________________________\n";
 
@@ -17,13 +18,35 @@ public class Duke {
         System.out.print(farewell);
     }
 
-    public static void printTasks(String[] taskArray, int taskCounter) {
+    public static void printTasks(Task[] taskArray, int taskCounter) {
         System.out.print(horizontalLine);
         System.out.println("Here's the task list: ");
 
         for (int i = 0; i < taskCounter; i++) {
-            System.out.println((i + 1) + ". " + taskArray[i]);
+            Task t = taskArray[i];
+            System.out.println((i + 1) + ".[" + t.getStatusIcon()+ "]" + t.getDescription());
         }
+        System.out.print(horizontalLine);
+    }
+
+    public static void markTask(Task[] taskArray, int taskNumber, boolean isDone) {
+        System.out.print(horizontalLine);
+        Task taskToEdit = taskArray[taskNumber];
+        if (taskToEdit.isDone == isDone) {
+            System.out.println("Task is already marked as " + (isDone ? "done!" : "undone!"));
+            System.out.print(horizontalLine);
+            return;
+        }
+        else if (isDone) {
+            System.out.println("Nice! I've marked this task as done:");
+            taskToEdit.markStatus(true);
+        }
+
+        else {
+            System.out.println("OK, I've marked this task as not done yet: ");
+            taskToEdit.markStatus(false);
+        }
+        System.out.println("[" + taskToEdit.getStatusIcon() + "]" + taskToEdit.getDescription());
         System.out.print(horizontalLine);
     }
     public static void main(String[] args) {
@@ -31,24 +54,36 @@ public class Duke {
 
         Scanner in = new Scanner(System.in);
         String inputLine = in.nextLine();
-        String[] taskArray = new String[100];
+        Task[] taskArray = new Task[100];
         int taskCounter = 0;
 
         while (true) {
+            String[] words = inputLine.split(" ");
             if (inputLine.equals("bye")) {
                 shutDown();
                 return;
             }
 
-            else if (inputLine.equals("list")) {
+            else if (words[0].equals("list")) {
                 printTasks(taskArray, taskCounter);
             }
 
+            else if (words[0].equals("unmark")) {
+                int taskNumber = Integer.parseInt(words[1]);
+                markTask(taskArray, taskNumber - 1, false);
+            }
+
+            else if (words[0].equals("mark")) {
+                int taskNumber = Integer.parseInt(words[1]);
+                markTask(taskArray, taskNumber - 1, true);
+            }
+
             else {
-                taskArray[taskCounter] = inputLine;
+                Task t = new Task(inputLine);
+                taskArray[taskCounter] = t;
                 taskCounter += 1;
                 System.out.print(horizontalLine);
-                System.out.println("Added: " + inputLine);
+                System.out.println("Added task: " + inputLine);
                 System.out.println("Number of Tasks: " + taskCounter);
                 System.out.print(horizontalLine);
             }
