@@ -11,15 +11,11 @@ public class Task {
         return this.description;
     }
 
-    public boolean isDone() {
-        return this.isDone;
-    }
-
     public String getStatusIcon() {
         return (isDone ? "X" : " ");
     }
 
-    public void markStatus(boolean status) {
-        this.isDone = status;
+    public void markStatus(boolean isDone) {
+        this.isDone = isDone;
     }
 }
