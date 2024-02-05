@@ -28,8 +28,7 @@ public class Duke {
         System.out.println("Here's the task list: ");
 
         for (int i = 0; i < taskCount; i++) {
-            Task t = tasks[i];
-            System.out.println((i + 1) + ".[" + t.getStatusIcon()+ "] " + t.getDescription());
+            System.out.println((i + 1) + ". "  + tasks[i]);
         }
 
         System.out.println(HORIZONTAL_LINE);
@@ -46,16 +45,38 @@ public class Duke {
         }
 
         else if (isDone) {
-            System.out.println("Nice! I've marked this task as done:");
-            taskToEdit.markStatus(true);
+            System.out.println("Nice! I've marked this task as done: ");
+            taskToEdit.setStatus(true);
         }
 
         else {
             System.out.println("OK, I've marked this task as not done yet: ");
-            taskToEdit.markStatus(false);
+            taskToEdit.setStatus(false);
         }
 
-        System.out.println("[" + taskToEdit.getStatusIcon() + "] " + taskToEdit.getDescription());
+        System.out.println(taskToEdit);
+        System.out.println(HORIZONTAL_LINE);
+    }
+
+    public static String removeFirstWord(String input){
+        return input.split(" ",2)[1];
+    }
+
+    public static String[] getTimings(String input) {
+
+        String[] timings = new String[2];
+        String timing = input.split(" /from ", 2)[1];
+
+        timings[0] = timing.split(" /to ", 2)[0];
+        timings[1] = timing.split(" /to ", 2)[1];
+
+        return timings;
+    }
+
+    public static void printAcknowledgement(String taskType, String description, int taskCount){
+        System.out.println(HORIZONTAL_LINE);
+        System.out.println("Added " + taskType + ": " + description);
+        System.out.println("Total Number of Tasks: " + taskCount);
         System.out.println(HORIZONTAL_LINE);
     }
     public static void main(String[] args) {
@@ -69,9 +90,37 @@ public class Duke {
         while (true) {
             String[] words = inputLine.split(" ");
 
-            if (inputLine.equals("bye")) {
+            if (words[0].equals("bye")) {
                 shutDown();
                 return;
+            }
+
+            else if (words[0].equals("deadline")) {
+                String inputWithoutTaskType = removeFirstWord(inputLine);
+                String description = inputWithoutTaskType.split(" /by ",2)[0];
+                String by = inputWithoutTaskType.split(" /by ", 2)[1];
+                Deadline deadline = new Deadline(description, by);
+                tasks[taskCount] = deadline;
+                taskCount += 1;
+                printAcknowledgement("Deadline", description, taskCount);
+            }
+
+            else if (words[0].equals("event")) {
+                String inputWithoutTaskType = removeFirstWord(inputLine);
+                String description = inputWithoutTaskType.split(" /from ",2)[0];
+                String[] timings = getTimings(inputWithoutTaskType);
+                Event event = new Event(description, timings[0], timings[1]);
+                tasks[taskCount] = event;
+                taskCount += 1;
+                printAcknowledgement("Event", description, taskCount);
+            }
+
+            else if (words[0].equals("todo")) {
+                String inputWithoutTaskType = removeFirstWord(inputLine);
+                Todo newTodo = new Todo(inputWithoutTaskType);
+                tasks[taskCount] = newTodo;
+                taskCount += 1;
+                printAcknowledgement("Todo", inputWithoutTaskType, taskCount);
             }
 
             else if (words[0].equals("list")) {
@@ -89,13 +138,8 @@ public class Duke {
             }
 
             else {
-                Task taskToAdd = new Task(inputLine);
-                tasks[taskCount] = taskToAdd;
-                taskCount += 1;
-
                 System.out.println(HORIZONTAL_LINE);
-                System.out.println("Added task: " + taskToAdd.getDescription());
-                System.out.println("Number of Tasks: " + taskCount);
+                System.out.println("Invalid command! Please try again!");
                 System.out.println(HORIZONTAL_LINE);
             }
             inputLine = in.nextLine();

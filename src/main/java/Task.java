@@ -15,7 +15,12 @@ public class Task {
         return (isDone ? "X" : " ");
     }
 
-    public void markStatus(boolean isDone) {
+    public void setStatus(boolean isDone) {
         this.isDone = isDone;
     }
+
+    public String printTask() {
+        return "[" + getStatusIcon() + "]" + getDescription();
+    }
+
 }
