@@ -62,7 +62,26 @@ public class Duke {
         return input.split(" ",2)[1];
     }
 
-    public static String[] getTimings(String input) {
+    public static void printAcknowledgement(String taskType, String description, int taskCount){
+        System.out.println(HORIZONTAL_LINE);
+        System.out.println("Added " + taskType + ": " + description);
+        System.out.println("Total Number of Tasks: " + taskCount);
+        System.out.println(HORIZONTAL_LINE);
+    }
+
+    public static String getDeadlineDescription(String input) {
+        return input.split(" /by ",2)[0];
+    }
+
+    public static String getDeadlineDate(String input) {
+        return input.split(" /by ", 2)[1];
+    }
+
+    public static String getEventDescription(String input) {
+        return input.split(" /from ",2)[0];
+    }
+
+    public static String[] getEventTimings(String input) {
 
         String[] timings = new String[2];
         String timing = input.split(" /from ", 2)[1];
@@ -73,12 +92,6 @@ public class Duke {
         return timings;
     }
 
-    public static void printAcknowledgement(String taskType, String description, int taskCount){
-        System.out.println(HORIZONTAL_LINE);
-        System.out.println("Added " + taskType + ": " + description);
-        System.out.println("Total Number of Tasks: " + taskCount);
-        System.out.println(HORIZONTAL_LINE);
-    }
     public static void main(String[] args) {
         startUp();
 
@@ -97,8 +110,8 @@ public class Duke {
 
             else if (words[0].equals("deadline")) {
                 String inputWithoutTaskType = removeFirstWord(inputLine);
-                String description = inputWithoutTaskType.split(" /by ",2)[0];
-                String by = inputWithoutTaskType.split(" /by ", 2)[1];
+                String description = getDeadlineDescription(inputWithoutTaskType);
+                String by = getDeadlineDate(inputWithoutTaskType);
                 Deadline deadline = new Deadline(description, by);
                 tasks[taskCount] = deadline;
                 taskCount += 1;
@@ -107,8 +120,8 @@ public class Duke {
 
             else if (words[0].equals("event")) {
                 String inputWithoutTaskType = removeFirstWord(inputLine);
-                String description = inputWithoutTaskType.split(" /from ",2)[0];
-                String[] timings = getTimings(inputWithoutTaskType);
+                String description = getEventDescription(inputWithoutTaskType);
+                String[] timings = getEventTimings(inputWithoutTaskType);
                 Event event = new Event(description, timings[0], timings[1]);
                 tasks[taskCount] = event;
                 taskCount += 1;
