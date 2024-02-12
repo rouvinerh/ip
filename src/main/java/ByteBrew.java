@@ -1,6 +1,6 @@
 import java.util.Scanner;
 
-public class Duke {
+public class ByteBrew {
     public static String HORIZONTAL_LINE = "__________________________________________________";
 
     public static void startUp() {
@@ -69,12 +69,11 @@ public class Duke {
         System.out.println(HORIZONTAL_LINE);
     }
 
-    public static String getDeadlineDescription(String input) {
-        return input.split(" /by ",2)[0];
-    }
-
-    public static String getDeadlineDate(String input) {
-        return input.split(" /by ", 2)[1];
+    public static String[] getDeadlineInformation(String input) {
+        String[] deadlineInformation = new String[2];
+        deadlineInformation[0] = input.split(" /by ",2)[0];
+        deadlineInformation[1] = input.split(" /by ",2)[1];
+        return deadlineInformation;
     }
 
     public static String getEventDescription(String input) {
@@ -101,24 +100,25 @@ public class Duke {
         int taskCount = 0;
 
         while (true) {
-            String[] words = inputLine.split(" ");
 
-            if (words[0].equals("bye")) {
+            if (inputLine.startsWith("bye")) {
                 shutDown();
                 return;
             }
 
-            else if (words[0].equals("deadline")) {
+            else if (inputLine.startsWith("deadline")) {
                 String inputWithoutTaskType = removeFirstWord(inputLine);
-                String description = getDeadlineDescription(inputWithoutTaskType);
-                String by = getDeadlineDate(inputWithoutTaskType);
+                String[] deadlineInformation = getDeadlineInformation(inputWithoutTaskType);
+
+                String description = deadlineInformation[0];
+                String by = deadlineInformation[1];
                 Deadline deadline = new Deadline(description, by);
                 tasks[taskCount] = deadline;
                 taskCount += 1;
                 printAcknowledgement("Deadline", description, taskCount);
             }
 
-            else if (words[0].equals("event")) {
+            else if (inputLine.startsWith("event")) {
                 String inputWithoutTaskType = removeFirstWord(inputLine);
                 String description = getEventDescription(inputWithoutTaskType);
                 String[] timings = getEventTimings(inputWithoutTaskType);
@@ -128,7 +128,7 @@ public class Duke {
                 printAcknowledgement("Event", description, taskCount);
             }
 
-            else if (words[0].equals("todo")) {
+            else if (inputLine.startsWith("todo")) {
                 String inputWithoutTaskType = removeFirstWord(inputLine);
                 Todo newTodo = new Todo(inputWithoutTaskType);
                 tasks[taskCount] = newTodo;
@@ -136,17 +136,17 @@ public class Duke {
                 printAcknowledgement("Todo", inputWithoutTaskType, taskCount);
             }
 
-            else if (words[0].equals("list")) {
+            else if (inputLine.startsWith("list")) {
                 listTasks(tasks, taskCount);
             }
 
-            else if (words[0].equals("unmark")) {
-                int taskIndex = Integer.parseInt(words[1]);
+            else if (inputLine.startsWith("unmark")) {
+                int taskIndex = Integer.parseInt(inputLine.split(" ", 2)[1]);
                 markTask(tasks, taskIndex - 1, false);
             }
 
-            else if (words[0].equals("mark")) {
-                int taskIndex = Integer.parseInt(words[1]);
+            else if (inputLine.startsWith("mark")) {
+                int taskIndex = Integer.parseInt(inputLine.split(" ", 2)[1]);
                 markTask(tasks, taskIndex - 1, true);
             }
 
