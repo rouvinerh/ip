@@ -169,8 +169,7 @@ public class ByteBrew {
                     }
                     int unmarkIndex = Integer.parseInt(words[1]) - 1;
                     if (unmarkIndex < 0 || unmarkIndex >= taskCount) {
-                        throw new ByteBrewException("Please specify a valid index!\n" +
-                                                    "Current number of tasks: " + taskCount);
+                        throw new ByteBrewException("Please specify a valid index!");
                     }
                     markTask(tasks, unmarkIndex, false);
                     continue;
@@ -182,8 +181,7 @@ public class ByteBrew {
                     }
                     int markIndex = Integer.parseInt(words[1]) - 1;
                     if (markIndex < 0 || markIndex >= taskCount) {
-                        throw new ByteBrewException("Please specify a valid index!\n" +
-                                                    "Current number of tasks: " + taskCount);
+                        throw new ByteBrewException("Please specify a valid index!");
                     }
                     markTask(tasks, markIndex, true);
                     continue;
