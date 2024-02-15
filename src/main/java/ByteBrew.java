@@ -118,27 +118,39 @@ public class ByteBrew {
     public static int addTodo(String[] words, String inputLine, Task[] tasks, int taskCount) throws ByteBrewException {
         if (words.length < MIN_INPUT_LENGTH) {
             throw new ByteBrewException("Description of a todo cannot be empty!\n" +
-                    "Usage: todo borrow book");
+                                        "Usage: todo borrow book");
         }
-        Todo newTodo = new Todo(removeFirstWord(inputLine));
-        tasks[taskCount] = newTodo;
-        taskCount += 1;
-        printAcknowledgement("Todo", removeFirstWord(inputLine), taskCount);
-        return taskCount;
+        try {
+            Todo newTodo = new Todo(removeFirstWord(inputLine));
+            tasks[taskCount] = newTodo;
+            taskCount += 1;
+            printAcknowledgement("Todo", removeFirstWord(inputLine), taskCount);
+            return taskCount;
+        }
+        catch (Exception e) {
+            throw new ByteBrewException("Invalid syntax for todo!\n" +
+                                        "Usage: todo borrow book");
+        }
     }
 
     public static int addEvent(String[] words, String inputLine, Task[] tasks, int taskCount) throws ByteBrewException {
         if (words.length < MIN_INPUT_LENGTH) {
             throw new ByteBrewException("Description of an event cannot be empty!\n" +
-                    "Usage: event project meeting /from Mon 2pm /to 4pm");
+                                        "Usage: event project meeting /from Mon 2pm /to 4pm");
         }
-        String[] timings = getEventTimings(inputLine);
-        String eventDescription = getEventDescription(inputLine);
-        Event event = new Event(eventDescription, timings[0], timings[1]);
-        tasks[taskCount] = event;
-        taskCount += 1;
-        printAcknowledgement("Event", eventDescription, taskCount);
-        return taskCount;
+        try {
+            String[] timings = getEventTimings(inputLine);
+            String eventDescription = getEventDescription(inputLine);
+            Event event = new Event(eventDescription, timings[0], timings[1]);
+            tasks[taskCount] = event;
+            taskCount += 1;
+            printAcknowledgement("Event", eventDescription, taskCount);
+            return taskCount;
+        }
+        catch (Exception e) {
+            throw new ByteBrewException("Invalid syntax for event!\n" +
+                                        "Usage: event project meeting /from Mon 2pm /to 4pm");
+        }
     }
 
     public static int addDeadline(String[] words, String inputLine, Task[] tasks, int taskCount) throws ByteBrewException {
@@ -146,15 +158,20 @@ public class ByteBrew {
             throw new ByteBrewException("Description of a deadline cannot be empty!\n" +
                     "Usage: deadline return book /by Sunday");
         }
-        if 
-        String[] deadlineInformation = getDeadlineInformation(inputLine);
-        String deadlineDescription = deadlineInformation[0];
-        String by = deadlineInformation[1];
-        Deadline deadline = new Deadline(deadlineDescription, by);
-        tasks[taskCount] = deadline;
-        taskCount += 1;
-        printAcknowledgement("Deadline", deadlineDescription, taskCount);
-        return taskCount;
+        try {
+            String[] deadlineInformation = getDeadlineInformation(inputLine);
+            String deadlineDescription = deadlineInformation[0];
+            String by = deadlineInformation[1];
+            Deadline deadline = new Deadline(deadlineDescription, by);
+            tasks[taskCount] = deadline;
+            taskCount += 1;
+            printAcknowledgement("Deadline", deadlineDescription, taskCount);
+            return taskCount;
+        }
+        catch (Exception e) {
+            throw new ByteBrewException("Invalid syntax for deadline!\n" +
+                                        "Usage: deadline return book /by Sunday");
+        }
     }
 
     public static void main(String[] args) {

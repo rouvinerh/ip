@@ -53,5 +53,44 @@ Here's the task list:
 3. [T] [ ] borrow book
 __________________________________________________
 __________________________________________________
+Description of a deadline cannot be empty!
+Usage: deadline return book /by Sunday
+__________________________________________________
+__________________________________________________
+Invalid syntax for deadline!
+Usage: deadline return book /by Sunday
+__________________________________________________
+__________________________________________________
+Invalid syntax for deadline!
+Usage: deadline return book /by Sunday
+__________________________________________________
+__________________________________________________
+Description of an event cannot be empty!
+Usage: event project meeting /from Mon 2pm /to 4pm
+__________________________________________________
+__________________________________________________
+Invalid syntax for event!
+Usage: event project meeting /from Mon 2pm /to 4pm
+__________________________________________________
+__________________________________________________
+Invalid syntax for event!
+Usage: event project meeting /from Mon 2pm /to 4pm
+__________________________________________________
+__________________________________________________
+Added Todo: 1
+Total Number of Tasks: 4
+__________________________________________________
+__________________________________________________
+Description of a todo cannot be empty!
+Usage: todo borrow book
+__________________________________________________
+__________________________________________________
+Here's the task list: 
+1. [D] [ ] return book (by: Sunday)
+2. [E] [ ] project meeting (from: Mon 2pm to: 4pm)
+3. [T] [ ] borrow book
+4. [T] [ ] 1
+__________________________________________________
+__________________________________________________
 Bye! Hope to see you again soon!
 __________________________________________________
