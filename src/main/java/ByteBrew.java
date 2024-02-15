@@ -92,6 +92,16 @@ public class ByteBrew {
         return timings;
     }
 
+    public static void printHelpMessage() {
+        System.out.println(HORIZONTAL_LINE);
+        System.out.println("Use either 'todo', 'event' or 'deadline' to add an item to the task list!");
+        System.out.println("Deadline Usage: deadline return book /by Sunday");
+        System.out.println("Event Usage: event project meeting /from Mon 2pm /to 4pm");
+        System.out.println("Todo Usage: todo borrow book");
+        System.out.println("Use 'bye' to end the bot!");
+        System.out.println(HORIZONTAL_LINE);
+    }
+
     public static void processMarkingCommand(String action, String[] words, Task[] tasks, int taskCount) throws ByteBrewException {
         if (words.length < MIN_INPUT_LENGTH) {
             throw new ByteBrewException("Please specify an index to " + action + "\n" +
@@ -105,14 +115,46 @@ public class ByteBrew {
         markTask(tasks, taskIndex, action.equals("mark"));
     }
 
-    public static void printHelpMessage() {
-        System.out.println(HORIZONTAL_LINE);
-        System.out.println("Use either 'todo', 'event' or 'deadline' to add an item to the task list!");
-        System.out.println("Deadline Usage: deadline return book /by Sunday");
-        System.out.println("Event Usage: event project meeting /from Mon 2pm /to 4pm");
-        System.out.println("Todo Usage: todo borrow book");
-        System.out.println("Use 'bye' to end the bot!");
-        System.out.println(HORIZONTAL_LINE);
+    public static int addTodo(String[] words, String inputLine, Task[] tasks, int taskCount) throws ByteBrewException {
+        if (words.length < MIN_INPUT_LENGTH) {
+            throw new ByteBrewException("Description of a todo cannot be empty!\n" +
+                    "Usage: todo borrow book");
+        }
+        Todo newTodo = new Todo(removeFirstWord(inputLine));
+        tasks[taskCount] = newTodo;
+        taskCount += 1;
+        printAcknowledgement("Todo", removeFirstWord(inputLine), taskCount);
+        return taskCount;
+    }
+
+    public static int addEvent(String[] words, String inputLine, Task[] tasks, int taskCount) throws ByteBrewException {
+        if (words.length < MIN_INPUT_LENGTH) {
+            throw new ByteBrewException("Description of an event cannot be empty!\n" +
+                    "Usage: event project meeting /from Mon 2pm /to 4pm");
+        }
+        String[] timings = getEventTimings(inputLine);
+        String eventDescription = getEventDescription(inputLine);
+        Event event = new Event(eventDescription, timings[0], timings[1]);
+        tasks[taskCount] = event;
+        taskCount += 1;
+        printAcknowledgement("Event", eventDescription, taskCount);
+        return taskCount;
+    }
+
+    public static int addDeadline(String[] words, String inputLine, Task[] tasks, int taskCount) throws ByteBrewException {
+        if (words.length < MIN_INPUT_LENGTH) {
+            throw new ByteBrewException("Description of a deadline cannot be empty!\n" +
+                    "Usage: deadline return book /by Sunday");
+        }
+        if 
+        String[] deadlineInformation = getDeadlineInformation(inputLine);
+        String deadlineDescription = deadlineInformation[0];
+        String by = deadlineInformation[1];
+        Deadline deadline = new Deadline(deadlineDescription, by);
+        tasks[taskCount] = deadline;
+        taskCount += 1;
+        printAcknowledgement("Deadline", deadlineDescription, taskCount);
+        return taskCount;
     }
 
     public static void main(String[] args) {
@@ -128,7 +170,6 @@ public class ByteBrew {
 
             try {
                 switch (words[0]) {
-
                 case "bye":
                     shutDown();
                     return;
@@ -138,41 +179,15 @@ public class ByteBrew {
                     continue;
 
                 case "deadline":
-                    if (words.length < MIN_INPUT_LENGTH) {
-                        throw new ByteBrewException("Description of a deadline cannot be empty!\n" +
-                                "Usage: deadline return book /by Sunday");
-                    }
-                    String[] deadlineInformation = getDeadlineInformation(inputLine);
-                    String deadlineDescription = deadlineInformation[0];
-                    String by = deadlineInformation[1];
-                    Deadline deadline = new Deadline(deadlineDescription, by);
-                    tasks[taskCount] = deadline;
-                    taskCount += 1;
-                    printAcknowledgement("Deadline", deadlineDescription, taskCount);
+                    taskCount = addDeadline(words, inputLine, tasks, taskCount);
                     continue;
 
                 case "event":
-                    if (words.length < MIN_INPUT_LENGTH) {
-                        throw new ByteBrewException("Description of an event cannot be empty!\n" +
-                                "Usage: event project meeting /from Mon 2pm /to 4pm");
-                    }
-                    String[] timings = getEventTimings(inputLine);
-                    String eventDescription = getEventDescription(inputLine);
-                    Event event = new Event(eventDescription, timings[0], timings[1]);
-                    tasks[taskCount] = event;
-                    taskCount += 1;
-                    printAcknowledgement("Event", eventDescription, taskCount);
+                    taskCount = addEvent(words, inputLine, tasks, taskCount);
                     continue;
 
                 case "todo":
-                    if (words.length < MIN_INPUT_LENGTH) {
-                        throw new ByteBrewException("Description of a todo cannot be empty!\n" +
-                                "Usage: todo borrow book");
-                    }
-                    Todo newTodo = new Todo(removeFirstWord(inputLine));
-                    tasks[taskCount] = newTodo;
-                    taskCount += 1;
-                    printAcknowledgement("Todo", removeFirstWord(inputLine), taskCount);
+                    taskCount = addTodo(words, inputLine, tasks, taskCount);
                     continue;
 
                 case "list":
