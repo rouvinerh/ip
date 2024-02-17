@@ -1,4 +1,5 @@
 import java.util.Scanner;
+import java.util.ArrayList;
 
 public class ByteBrew {
     public static final String HORIZONTAL_LINE = "__________________________________________________";
@@ -19,7 +20,7 @@ public class ByteBrew {
         System.out.println(HORIZONTAL_LINE);
     }
 
-    public static void listTasks(Task[] tasks, int taskCount) throws ByteBrewException {
+    public static void listTasks(ArrayList<Task> tasks, int taskCount) throws ByteBrewException {
         if (taskCount == 0) {
             throw new ByteBrewException("There is nothing in the task list!");
         }
@@ -27,15 +28,15 @@ public class ByteBrew {
         System.out.println("Here's the task list: ");
 
         for (int i = 0; i < taskCount; i++) {
-            System.out.println((i + 1) + ". "  + tasks[i]);
+            System.out.println((i + 1) + ". "  + tasks.get(i));
         }
 
         System.out.println(HORIZONTAL_LINE);
     }
 
-    public static void markTask(Task[] tasks, int taskIndex, boolean isDone) {
+    public static void markTask(ArrayList<Task> tasks, int taskIndex, boolean isDone) {
         System.out.println(HORIZONTAL_LINE);
-        Task taskToEdit = tasks[taskIndex];
+        Task taskToEdit = tasks.get(taskIndex);
 
         if (taskToEdit.isDone == isDone) {
             System.out.println("Task is already marked as " + (isDone ? "done!" : "undone!"));
@@ -102,27 +103,37 @@ public class ByteBrew {
         System.out.println(HORIZONTAL_LINE);
     }
 
-    public static void processMarkingCommand(String action, String[] words, Task[] tasks, int taskCount) throws ByteBrewException {
+    public static int getTaskIndex(String[] words, int taskCount) throws ByteBrewException {
+        try {
+            int taskIndex = Integer.parseInt(words[1]) - 1;
+            if (taskIndex < 0 || taskIndex >= taskCount) {
+                throw new ByteBrewException("Please specify a valid index!\n" +
+                                            "Current number of tasks: " + taskCount);
+            }
+            return taskIndex;
+        }
+        catch (NumberFormatException e) {
+            throw new ByteBrewException("Please enter a valid number for the index!");
+        }
+    }
+
+    public static void processMarkingCommand(String action, String[] words, ArrayList<Task> tasks, int taskCount) throws ByteBrewException {
         if (words.length < MIN_INPUT_LENGTH) {
             throw new ByteBrewException("Please specify an index to " + action + "\n" +
                                         "Usage: " + action + " 1");
         }
-        int taskIndex = Integer.parseInt(words[1]) - 1;
-        if (taskIndex < 0 || taskIndex >= taskCount) {
-            throw new ByteBrewException("Please specify a valid index!\n" +
-                    "Current number of tasks: " + taskCount);
-        }
-        markTask(tasks, taskIndex, action.equals("mark"));
+            int taskIndex = getTaskIndex(words, taskCount);
+            markTask(tasks, taskIndex, action.equals("mark"));
     }
 
-    public static int addTodo(String[] words, String inputLine, Task[] tasks, int taskCount) throws ByteBrewException {
+    public static int addTodo(String[] words, String inputLine, ArrayList<Task> tasks, int taskCount) throws ByteBrewException {
         if (words.length < MIN_INPUT_LENGTH) {
             throw new ByteBrewException("Description of a todo cannot be empty!\n" +
                                         "Usage: todo borrow book");
         }
         try {
             Todo newTodo = new Todo(removeFirstWord(inputLine));
-            tasks[taskCount] = newTodo;
+            tasks.add(taskCount, newTodo);
             taskCount += 1;
             printAcknowledgement("Todo", removeFirstWord(inputLine), taskCount);
             return taskCount;
@@ -133,7 +144,7 @@ public class ByteBrew {
         }
     }
 
-    public static int addEvent(String[] words, String inputLine, Task[] tasks, int taskCount) throws ByteBrewException {
+    public static int addEvent(String[] words, String inputLine, ArrayList<Task> tasks, int taskCount) throws ByteBrewException {
         if (words.length < MIN_INPUT_LENGTH) {
             throw new ByteBrewException("Description of an event cannot be empty!\n" +
                                         "Usage: event project meeting /from Mon 2pm /to 4pm");
@@ -142,7 +153,7 @@ public class ByteBrew {
             String[] timings = getEventTimings(inputLine);
             String eventDescription = getEventDescription(inputLine);
             Event event = new Event(eventDescription, timings[0], timings[1]);
-            tasks[taskCount] = event;
+            tasks.add(taskCount, event);
             taskCount += 1;
             printAcknowledgement("Event", eventDescription, taskCount);
             return taskCount;
@@ -153,7 +164,7 @@ public class ByteBrew {
         }
     }
 
-    public static int addDeadline(String[] words, String inputLine, Task[] tasks, int taskCount) throws ByteBrewException {
+    public static int addDeadline(String[] words, String inputLine, ArrayList<Task> tasks, int taskCount) throws ByteBrewException {
         if (words.length < MIN_INPUT_LENGTH) {
             throw new ByteBrewException("Description of a deadline cannot be empty!\n" +
                     "Usage: deadline return book /by Sunday");
@@ -163,7 +174,7 @@ public class ByteBrew {
             String deadlineDescription = deadlineInformation[0];
             String by = deadlineInformation[1];
             Deadline deadline = new Deadline(deadlineDescription, by);
-            tasks[taskCount] = deadline;
+            tasks.add(taskCount, deadline);
             taskCount += 1;
             printAcknowledgement("Deadline", deadlineDescription, taskCount);
             return taskCount;
@@ -174,11 +185,33 @@ public class ByteBrew {
         }
     }
 
+    public static int deleteItem(String[] words, ArrayList<Task> tasks, int taskCount) throws ByteBrewException {
+        if (words.length < MIN_INPUT_LENGTH) {
+            throw new ByteBrewException("Task index to delete must be specified!\n" +
+                                        "Usage: delete 1");
+        }
+        try {
+            int taskIndex = getTaskIndex(words, taskCount);
+            taskCount -= 1;
+
+            System.out.println(HORIZONTAL_LINE);
+            System.out.println("Deleted task " + (taskIndex + 1) + ": " + tasks.get(taskIndex));
+            System.out.println("Number of tasks left: " + taskCount);
+            System.out.println(HORIZONTAL_LINE);
+
+            tasks.remove(taskIndex);
+            return taskCount;
+        }
+        catch (NumberFormatException e) {
+            throw new ByteBrewException("Please enter a valid number for the index!");
+        }
+    }
+
     public static void main(String[] args) {
         startUp();
         Scanner in = new Scanner(System.in);
 
-        Task[] tasks = new Task[MAX_TASK_COUNT];
+        ArrayList<Task> tasks = new ArrayList<>(MAX_TASK_COUNT);
         int taskCount = 0;
 
         while (true) {
@@ -217,6 +250,10 @@ public class ByteBrew {
 
                 case "mark":
                     processMarkingCommand("mark", words, tasks, taskCount);
+                    continue;
+
+                case "delete":
+                    taskCount = deleteItem(words, tasks, taskCount);
                     continue;
 
                 default:
