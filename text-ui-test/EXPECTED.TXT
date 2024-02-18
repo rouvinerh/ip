@@ -3,6 +3,9 @@ Hello! I'm ByteBrew!
 What can I do for you?
 __________________________________________________
 __________________________________________________
+Data file NOT present. Creating one now!
+__________________________________________________
+__________________________________________________
 Use either 'todo', 'event' or 'deadline' to add an item to the task list!
 Deadline Usage: deadline return book /by Sunday
 Event Usage: event project meeting /from Mon 2pm /to 4pm
@@ -90,6 +93,9 @@ Here's the task list:
 2. [E] [ ] project meeting (from: Mon 2pm to: 4pm)
 3. [T] [ ] borrow book
 4. [T] [ ] 1
+__________________________________________________
+__________________________________________________
+Wrote tasks to bytebrew_data.txt!
 __________________________________________________
 __________________________________________________
 Bye! Hope to see you again soon!

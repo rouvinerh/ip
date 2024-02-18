@@ -1,4 +1,0 @@
-todo| |borrow book 
-event| |project meeting from: Mon 2pm to: 4pm
-deadline|X|return book by: Sunday
-deadline|X|eat food by: Today
