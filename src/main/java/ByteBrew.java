@@ -203,8 +203,7 @@ public class ByteBrew {
             return taskCount;
         }
         catch (NumberFormatException e) {
-            throw new ByteBrewException("Please enter a valid number for the index!\n" +
-                                        "Usage: delete 2");
+            throw new ByteBrewException("Please enter a valid number for the index!");
         }
     }
 
