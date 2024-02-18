@@ -207,12 +207,12 @@ public class ByteBrew {
         }
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws ByteBrewException {
         startUp();
         Scanner in = new Scanner(System.in);
 
         ArrayList<Task> tasks = new ArrayList<>(MAX_TASK_COUNT);
-        int taskCount = 0;
+        int taskCount = Storage.processFile(tasks);
 
         while (true) {
             String inputLine = in.nextLine().trim();
@@ -221,6 +221,7 @@ public class ByteBrew {
             try {
                 switch (words[0]) {
                 case "bye":
+                    Storage.writeFile(tasks);
                     shutDown();
                     return;
 
