@@ -1,6 +1,7 @@
+package tasks;
 public class Task {
-    protected String description;
-    protected boolean isDone;
+    public boolean isDone;
+    private String description;
     private String type = "task";
     public Task(String description) {
         this.description = description;

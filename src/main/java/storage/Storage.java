@@ -1,12 +1,16 @@
+package storage;
+
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-public class Storage {
+import tasks.*;
+import utility.constants;
+import bytebrew.ByteBrewException;
 
-    public static final String HORIZONTAL_LINE = "__________________________________________________";
+public class Storage {
 
     public static void checkIsDone(ArrayList<Task> tasks, String symbol, int taskCount) throws ByteBrewException {
         if (symbol.equals("X")) {
@@ -25,13 +29,13 @@ public class Storage {
             File dataFile = new File("bytebrew_data.txt");
 
             if (dataFile.createNewFile()) {
-                System.out.println(HORIZONTAL_LINE);
+                System.out.println(constants.HORIZONTAL_LINE);
                 System.out.println("Data file NOT present. Creating one now!");
-                System.out.println(HORIZONTAL_LINE);
+                System.out.println(constants.HORIZONTAL_LINE);
             } else {
-                System.out.println(HORIZONTAL_LINE);
+                System.out.println(constants.HORIZONTAL_LINE);
                 System.out.println("Data file present!");
-                System.out.println(HORIZONTAL_LINE);
+                System.out.println(constants.HORIZONTAL_LINE);
             }
 
             final Scanner READ_FILE = new Scanner(dataFile);
@@ -102,11 +106,11 @@ public class Storage {
 
             for (Task t : tasks) {
                 dataFile.write(t.getType() + "|" + t.getStatusIcon() + "|" + t.getDescription() + " " +
-                                   t.getTimes() + '\n');
+                        t.getTimes() + '\n');
             }
-            System.out.println(HORIZONTAL_LINE);
+            System.out.println(constants.HORIZONTAL_LINE);
             System.out.println("Wrote tasks to bytebrew_data.txt!");
-            System.out.println(HORIZONTAL_LINE);
+            System.out.println(constants.HORIZONTAL_LINE);
             dataFile.close();
         }
         catch (IOException e) {
