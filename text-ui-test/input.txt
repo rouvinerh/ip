@@ -18,4 +18,7 @@ event project meet from Mon 2pm to 4pm
 todo 1
 todo
 list
+delete 1
+list
+delete 4
 bye
