@@ -26,7 +26,7 @@ public class Storage {
     public static int processFile(ArrayList<Task> tasks) throws ByteBrewException {
         int taskCount = 0;
         try {
-            File dataFile = new File("bytebrew_data.txt");
+            File dataFile = new File(constants.DATA_FILE_NAME);
 
             checkDataFile(dataFile);
 
@@ -65,13 +65,13 @@ public class Storage {
     public static void processEvent(ArrayList<Task> tasks, String[] task, int taskCount) throws ByteBrewException {
         String[] eventInfo = task[2].split("from:");
 
-        if (eventInfo.length < 2) {
+        if (eventInfo.length < constants.MIN_EVENT_INFO_LENGTH) {
             throw new ByteBrewException("Invalid event format");
         }
         String eventDescription = eventInfo[0].trim();
 
         String[] eventTimes = eventInfo[1].split(" to:");
-        if (eventTimes.length < 2) {
+        if (eventTimes.length < constants.MIN_EVENT_TIMES_LENGTH) {
             throw new ByteBrewException("Invalid event format");
         }
 
@@ -86,7 +86,7 @@ public class Storage {
     public static void processDeadline(ArrayList<Task> tasks, String[] task, int taskCount) throws ByteBrewException {
         String[] deadlineInfo = task[2].split("by:");
         String by;
-        if (deadlineInfo.length > 1) {
+        if (deadlineInfo.length > constants.MIN_DEADLINE_INFO_LENGTH) {
             by = deadlineInfo[1].trim().substring(0, deadlineInfo[1].length() - 1);
         }
         else {
@@ -118,14 +118,14 @@ public class Storage {
 
     public static void writeFile(ArrayList<Task> tasks) throws ByteBrewException {
         try {
-            FileWriter dataFile = new FileWriter("bytebrew_data.txt");
+            FileWriter dataFile = new FileWriter(constants.DATA_FILE_NAME);
 
             for (Task t : tasks) {
                 dataFile.write(t.getType() + "|" + t.getStatusIcon() + "|" + t.getDescription() + " " +
                         t.getTimes() + '\n');
             }
             System.out.println(constants.HORIZONTAL_LINE);
-            System.out.println("Wrote tasks to bytebrew_data.txt!");
+            System.out.println("Wrote tasks to " + constants.DATA_FILE_NAME);
             System.out.println(constants.HORIZONTAL_LINE);
             dataFile.close();
         }
