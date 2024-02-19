@@ -5,6 +5,7 @@ if not exist ..\bin mkdir ..\bin
 
 REM delete output from previous run
 del ACTUAL.TXT
+del "bytebrew_data.txt"
 
 REM compile the code into the bin folder
 javac  -cp ..\src\main\java -Xlint:none -d ..\bin ..\src\main\java\*.java
@@ -19,3 +20,4 @@ java -classpath ..\bin ByteBrew < input.txt > ACTUAL.TXT
 
 REM compare the output to the expected output
 FC ACTUAL.TXT EXPECTED.TXT
+FC bytebrew_data.txt EXPECTED_DATA.txt
