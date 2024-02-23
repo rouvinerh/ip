@@ -1,13 +1,16 @@
 package command;
 
-import tasks.Task;
+import storage.Storage;
+import tasks.TaskList;
+import utility.Ui;
 import utility.constants;
 import bytebrew.ByteBrewException;
 
-import java.util.ArrayList;
+public class list implements Command{
 
-public class list {
-    public static void listTasks(ArrayList<Task> tasks, int taskCount) throws ByteBrewException {
+    @Override
+    public void execute(TaskList tasks, Ui ui, Storage storage) throws ByteBrewException {
+        int taskCount = tasks.size();
         if (taskCount == 0) {
             throw new ByteBrewException("There is nothing in the task list!");
         }
@@ -19,5 +22,10 @@ public class list {
         }
 
         System.out.println(constants.HORIZONTAL_LINE);
+    }
+
+    @Override
+    public boolean isExit(){
+        return false;
     }
 }

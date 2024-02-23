@@ -23,7 +23,7 @@ public class Storage {
             throw new ByteBrewException("Invalid symbol for isDone!");
         }
     }
-    public static int processFile(ArrayList<Task> tasks) throws ByteBrewException {
+    public static void processFile(ArrayList<Task> tasks) throws ByteBrewException {
         int taskCount = 0;
         try {
             File dataFile = new File(constants.DATA_FILE_NAME);
@@ -55,7 +55,6 @@ public class Storage {
                 }
                 taskCount += 1;
             }
-            return taskCount;
         } catch (Exception e) {
             throw new ByteBrewException("File read error occurred!\n" +
                     "Errored at taskCount = " + taskCount);
@@ -125,7 +124,7 @@ public class Storage {
                         t.getTimes() + '\n');
             }
             System.out.println(constants.HORIZONTAL_LINE);
-            System.out.println("Wrote tasks to " + constants.DATA_FILE_NAME);
+            System.out.println("Wrote tasks to " + constants.DATA_FILE_NAME + '!');
             System.out.println(constants.HORIZONTAL_LINE);
             dataFile.close();
         }

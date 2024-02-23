@@ -4,10 +4,30 @@ import bytebrew.ByteBrewException;
 import tasks.Task;
 import utility.constants;
 import utility.parse;
+import storage.Storage;
+import utility.Ui;
+import tasks.TaskList;
 
 import java.util.ArrayList;
 
-public class mark {
+public class mark implements Command{
+    private final boolean IS_MARK;
+    private final String[] WORDS;
+
+    public mark(boolean isMark, String[] words) {
+        this.IS_MARK = isMark;
+        this.WORDS = words;
+    }
+
+    @Override
+    public void execute(TaskList tasks, Ui ui, Storage storage) throws ByteBrewException {
+        processMarkingCommand(IS_MARK, WORDS, tasks, tasks.size());
+    }
+
+    @Override
+    public boolean isExit() {
+        return false;
+    }
     public static void markTask(ArrayList<Task> tasks, int taskIndex, boolean isDone) {
         System.out.println(constants.HORIZONTAL_LINE);
         Task taskToEdit = tasks.get(taskIndex);
@@ -32,7 +52,15 @@ public class mark {
         System.out.println(constants.HORIZONTAL_LINE);
     }
 
-    public static void processMarkingCommand(String action, String[] words, ArrayList<Task> tasks, int taskCount) throws ByteBrewException {
+    public static void processMarkingCommand(boolean isMark, String[] words, ArrayList<Task> tasks, int taskCount) throws ByteBrewException {
+        String action;
+        if (isMark) {
+            action = "mark";
+        }
+        else {
+            action = "unmark";
+        }
+
         if (words.length < constants.MIN_INPUT_LENGTH) {
             throw new ByteBrewException("Please specify an index to " + action + "\n" +
                     "Usage: " + action + " 1");

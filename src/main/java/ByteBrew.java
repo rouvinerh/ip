@@ -1,69 +1,39 @@
-import java.util.Scanner;
-import java.util.ArrayList;
-
-import command.*;
-import tasks.Task;
-import utility.*;
+import tasks.TaskList;
+import utility.Ui;
 import storage.Storage;
+import utility.parse;
 import bytebrew.ByteBrewException;
-public class ByteBrew {
-    public static void main(String[] args) throws ByteBrewException {
+import command.Command;
+
+public class ByteBrew{
+    private Storage storage;
+    private TaskList tasks;
+    private Ui ui;
+
+    public ByteBrew(){
+        this.tasks = new TaskList();
+        this.ui = new Ui();
+        this.storage = new Storage();
+    }
+
+    public void run() throws ByteBrewException {
         ui.startUp();
-        Scanner in = new Scanner(System.in);
-
-        ArrayList<Task> tasks = new ArrayList<>(constants.MAX_TASK_COUNT);
-        int taskCount = Storage.processFile(tasks);
-
-        while (true) {
-            String inputLine = in.nextLine().trim();
-            String[] words = inputLine.split(" ");
-
+        Storage.processFile(this.tasks);
+        boolean isExit = false;
+        while (!isExit) {
             try {
-                switch (words[0]) {
-                case "bye":
-                    Storage.writeFile(tasks);
-                    ui.shutDown();
-                    return;
-
-                case "help":
-                    help.printHelpMessage();
-                    continue;
-
-                case "deadline":
-                    taskCount = deadline.addDeadline(words, inputLine, tasks, taskCount);
-                    continue;
-
-                case "event":
-                    taskCount = event.addEvent(words, inputLine, tasks, taskCount);
-                    continue;
-
-                case "todo":
-                    taskCount = todo.addTodo(words, inputLine, tasks, taskCount);
-                    continue;
-
-                case "list":
-                    list.listTasks(tasks, taskCount);
-                    continue;
-
-                case "unmark":
-                    mark.processMarkingCommand("unmark", words, tasks, taskCount);
-                    continue;
-
-                case "mark":
-                    mark.processMarkingCommand("mark", words, tasks, taskCount);
-                    continue;
-
-                case "delete":
-                    taskCount = delete.deleteItem(words, tasks, taskCount);
-                    continue;
-
-                default:
-                    throw new ByteBrewException("Invalid command! Use 'help' to see the commands available!");
-                }
+                String fullCommand = ui.readCommand();
+                Command command = parse.parseCommand(fullCommand);
+                command.execute(tasks, ui, storage);
+                isExit = command.isExit();
             }
             catch (ByteBrewException e) {
-                System.out.print(e.getMessage());
+                ui.showError(e.getMessage());
             }
         }
+    }
+
+    public static void main(String[] args) throws ByteBrewException{
+        new ByteBrew().run();
     }
 }
