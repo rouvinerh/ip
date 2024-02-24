@@ -5,7 +5,7 @@ import storage.Storage;
 import tasks.TaskList;
 import utility.Ui;
 import tasks.Task;
-import utility.constants;
+import utility.Constants;
 
 public class find implements Command{
 
@@ -21,11 +21,11 @@ public class find implements Command{
 
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws ByteBrewException {
-        if (WORDS.length < constants.MIN_INPUT_LENGTH) {
+        if (WORDS.length < Constants.MIN_INPUT_LENGTH) {
             throw new ByteBrewException("Please specify a keyword!\n" +
                                         "Usage: find book");
         }
-        if (WORDS.length > constants.MAX_FIND_INPUT_LENGTH) {
+        if (WORDS.length > Constants.MAX_FIND_INPUT_LENGTH) {
             throw new ByteBrewException("Please specifiy ONE keyword!\n" +
                                         "Usage: find book");
         }
@@ -35,7 +35,7 @@ public class find implements Command{
             throw new ByteBrewException("There is nothing in the task list to find!");
         }
 
-        System.out.println(constants.HORIZONTAL_LINE);
+        System.out.println(Constants.HORIZONTAL_LINE);
         System.out.println("Finding matching tasks in list...");
 
         int foundTaskCount = 0;
@@ -50,6 +50,6 @@ public class find implements Command{
         if (foundTaskCount == 0) {
             System.out.println("Found no tasks with keyword of: '" + KEYWORD + "'");
         }
-        System.out.println(constants.HORIZONTAL_LINE);
+        System.out.println(Constants.HORIZONTAL_LINE);
     }
 }

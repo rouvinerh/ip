@@ -1,19 +1,18 @@
 package utility;
 
 import bytebrew.ByteBrewException;
-
 import command.Command;
-import command.deadline;
-import command.delete;
-import command.find;
-import command.event;
-import command.help;
-import command.list;
-import command.mark;
-import command.todo;
-import command.bye;
+import command.DeadlineCommand;
+import command.DeleteCommand;
+import command.EventCommand;
+import command.FindCommand;
+import command.HelpCommand;
+import command.ListCommand;
+import command.MarkCommand;
+import command.TodoCommand;
+import command.ByeCommand;
 
-public class parse {
+public class Parse {
     public static String removeFirstWord(String input){
         return input.split(" ",2)[1];
     }
@@ -37,34 +36,34 @@ public class parse {
 
         switch (words[0]) {
         case "bye":
-            return new bye();
+            return new ByeCommand();
 
         case "help":
-            return new help();
+            return new HelpCommand();
 
         case "find":
-            return new find(words);
+            return new FindCommand(words);
 
         case "deadline":
-            return new deadline(command, words);
+            return new DeadlineCommand(command, words);
 
         case "event":
-            return new event(command, words);
+            return new EventCommand(command, words);
 
         case "todo":
-            return new todo(command, words);
+            return new TodoCommand(command, words);
 
         case "list":
-            return new list();
+            return new ListCommand();
 
         case "unmark":
-            return new mark(false, words);
+            return new MarkCommand(false, words);
 
         case "mark":
-            return new mark(true, words);
+            return new MarkCommand(true, words);
 
         case "delete":
-            return new delete(words);
+            return new DeleteCommand(words);
 
         default:
             throw new ByteBrewException("Invalid command! Use 'help' to see the commands available!");
