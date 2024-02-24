@@ -4,7 +4,7 @@ import bytebrew.ByteBrewException;
 import storage.Storage;
 import utility.Ui;
 import tasks.TaskList;
-public class bye implements Command{
+public class ByeCommand implements Command{
 
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws ByteBrewException {

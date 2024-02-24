@@ -1,7 +1,7 @@
 import tasks.TaskList;
 import utility.Ui;
 import storage.Storage;
-import utility.parse;
+import utility.Parse;
 import bytebrew.ByteBrewException;
 import command.Command;
 
@@ -23,7 +23,7 @@ public class ByteBrew{
         while (!isExit) {
             try {
                 String fullCommand = ui.readCommand();
-                Command command = parse.parseCommand(fullCommand);
+                Command command = Parse.parseCommand(fullCommand);
                 command.execute(tasks, ui, storage);
                 isExit = command.isExit();
             }
