@@ -1,4 +1,8 @@
 package tasks;
+
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
 public class Task {
     public boolean isDone;
     private String description;
@@ -26,10 +30,6 @@ public class Task {
     }
 
     public String getTimes() {
-        return " ";
+        return "";
     }
-    public String printTask() {
-        return "[" + getStatusIcon() + "]" + getDescription();
-    }
-
 }
