@@ -5,14 +5,12 @@ import command.Command;
 import command.DeadlineCommand;
 import command.DeleteCommand;
 import command.EventCommand;
+import command.FindCommand;
 import command.HelpCommand;
 import command.ListCommand;
 import command.MarkCommand;
 import command.TodoCommand;
 import command.ByeCommand;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeParseException;
 
 public class Parse {
     public static String removeFirstWord(String input){
@@ -42,6 +40,9 @@ public class Parse {
 
         case "help":
             return new HelpCommand();
+
+        case "find":
+            return new FindCommand(words);
 
         case "deadline":
             return new DeadlineCommand(command, words);
