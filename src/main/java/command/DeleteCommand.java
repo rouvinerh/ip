@@ -5,16 +5,16 @@ import storage.Storage;
 import tasks.Task;
 import tasks.TaskList;
 import utility.Ui;
-import utility.constants;
-import utility.parse;
+import utility.Constants;
+import utility.Parse;
 
 import java.util.ArrayList;
 
-public class delete implements Command {
+public class DeleteCommand implements Command {
 
     private final String[] WORDS;
 
-    public delete(String[] words) {
+    public DeleteCommand(String[] words) {
         this.WORDS = words;
     }
 
@@ -29,18 +29,18 @@ public class delete implements Command {
     }
 
     public static void deleteItem(String[] words, ArrayList<Task> tasks, int taskCount) throws ByteBrewException {
-        if (words.length < constants.MIN_INPUT_LENGTH) {
+        if (words.length < Constants.MIN_INPUT_LENGTH) {
             throw new ByteBrewException("Task index to delete must be specified!\n" +
                     "Usage: delete 1");
         }
         try {
-            int taskIndex = parse.getTaskIndex(words, taskCount);
+            int taskIndex = Parse.getTaskIndex(words, taskCount);
             taskCount -= 1;
 
-            System.out.println(constants.HORIZONTAL_LINE);
+            System.out.println(Constants.HORIZONTAL_LINE);
             System.out.println("Deleted task " + (taskIndex + 1) + ": " + tasks.get(taskIndex));
             System.out.println("Number of tasks left: " + taskCount);
-            System.out.println(constants.HORIZONTAL_LINE);
+            System.out.println(Constants.HORIZONTAL_LINE);
             tasks.remove(taskIndex);
         }
         catch (NumberFormatException e) {
