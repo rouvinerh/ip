@@ -9,6 +9,7 @@ import command.HelpCommand;
 import command.ListCommand;
 import command.MarkCommand;
 import command.TodoCommand;
+import command.find;
 import command.ByeCommand;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -42,6 +43,9 @@ public class Parse {
 
         case "help":
             return new HelpCommand();
+
+        case "find":
+            return new find(words);
 
         case "deadline":
             return new DeadlineCommand(command, words);
