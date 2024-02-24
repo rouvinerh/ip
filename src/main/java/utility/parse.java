@@ -5,6 +5,7 @@ import bytebrew.ByteBrewException;
 import command.Command;
 import command.deadline;
 import command.delete;
+import command.find;
 import command.event;
 import command.help;
 import command.list;
@@ -40,6 +41,9 @@ public class parse {
 
         case "help":
             return new help();
+
+        case "find":
+            return new find(words);
 
         case "deadline":
             return new deadline(command, words);

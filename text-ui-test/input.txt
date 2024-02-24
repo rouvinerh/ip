@@ -21,4 +21,8 @@ list
 delete 1
 list
 delete 4
+find
+find fake tasks
+find duck
+find meeting
 bye
