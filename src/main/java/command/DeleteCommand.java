@@ -71,6 +71,7 @@ public class DeleteCommand implements Command {
             System.out.println("Number of tasks left: " + taskCount);
             System.out.println(Constants.HORIZONTAL_LINE);
             tasks.remove(taskIndex);
+            Storage.writeFile(tasks);
         }
         catch (NumberFormatException e) {
             throw new ByteBrewException("Please enter a valid number for the index!");

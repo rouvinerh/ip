@@ -70,6 +70,7 @@ public class TodoCommand implements Command{
             Todo newTodo = new Todo(Parse.removeFirstWord(inputLine).trim());
             tasks.add(taskCount, newTodo);
             Ui.printAcknowledgement("Todo", Parse.removeFirstWord(inputLine), taskCount);
+            Storage.writeFile(tasks);
         }
         catch (Exception e) {
             throw new ByteBrewException("Invalid syntax for todo!\n" +

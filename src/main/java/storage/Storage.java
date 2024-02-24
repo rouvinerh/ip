@@ -178,9 +178,6 @@ public class Storage {
                 dataFile.write(t.getType() + "|" + t.getStatusIcon() + "|" + t.getDescription() + " " +
                         t.getTimes() + '\n');
             }
-            System.out.println(Constants.HORIZONTAL_LINE);
-            System.out.println("Wrote tasks to " + Constants.DATA_FILE_NAME + '!');
-            System.out.println(Constants.HORIZONTAL_LINE);
             dataFile.close();
         }
         catch (IOException e) {

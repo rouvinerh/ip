@@ -4,6 +4,7 @@ ByteBrew is a bot used for managing a task list, optimised for use via a Command
 
 * [Quick Start](#quick-start)
 * [Features](#features)
+  - [Saving Data](#saving-data)
   - [Add Todo task: `todo`](#add-todo-task-todo)
   - [Add Deadline Task: `deadline`](#add-deadline-task-deadline)
   - [Add Event Task: `event`](#add-event-task-event)
@@ -46,6 +47,24 @@ Some example commands:
 
 * Words in `UPPER_CASE` are parameters supplied **by the user**.
   - E.g. in `todo DESCRIPTION`, `DESCRIPTION` is a parameter which can be used as `todo Finish DukeBot`.
+
+
+### Saving Data
+
+Each time the task list is modified, ByteBrew will automatically save the data to `bytebrew_data.txt`. No other actions are required from the user to save data.
+
+If `bytebrew_data.txt` is found in the same directory, starting the bot will produce the following output:
+
+```
+$ java -jar ip.jar
+__________________________________________________
+Hello! I'm ByteBrew!
+What can I do for you?
+__________________________________________________
+__________________________________________________
+Data file present!
+__________________________________________________
+```
 
 ### Add Todo Task: `todo`
 
@@ -291,9 +310,9 @@ Use 'bye' to end the bot!
 __________________________________________________
 ```
 
-### Exit and Write Data: `bye`
+### Exit Bot: `bye`
 
-Exits bot and writes task list data to `bytebrew_data.txt`. Exiting bot without `bye` **WILL NOT WRITE** to `bytebrew_data.txt` as of this iteration.
+Exits bot gracefully.
 
 Format: `bye`
 
@@ -301,9 +320,6 @@ Expected Output:
 
 ```
 bye
-__________________________________________________
-Wrote tasks to ./bytebrew_data.txt!
-__________________________________________________
 __________________________________________________
 Bye! Hope to see you again soon!
 __________________________________________________
@@ -313,8 +329,21 @@ __________________________________________________
 
 1. If I exit the bot using anything other than `bye`, will I lose data?
 
-Yes, data will be lost.
+No. Data will be saved each time the task list is edited.
 
 2. How do I transfer data to other machines?
 
 Copy the `ip.jar` file and `bytebrew_data.txt` to the other machine. Place both of the files in the same directory, and ByteBrew will read the data file.
+
+If `bytebrew_data.txt` is found in the same directory, starting the bot will produce the following output:
+
+```
+$ java -jar ip.jar
+__________________________________________________
+Hello! I'm ByteBrew!
+What can I do for you?
+__________________________________________________
+__________________________________________________
+Data file present!
+__________________________________________________
+```

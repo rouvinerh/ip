@@ -50,7 +50,7 @@ public class FindCommand implements Command{
                                         "Usage: find book");
         }
         if (WORDS.length > Constants.MAX_FIND_INPUT_LENGTH) {
-            throw new ByteBrewException("Please specifiy ONE keyword!\n" +
+            throw new ByteBrewException("Please specify ONE keyword!\n" +
                                         "Usage: find book");
         }
         final String KEYWORD = WORDS[1];

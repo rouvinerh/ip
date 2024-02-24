@@ -75,6 +75,7 @@ public class DeadlineCommand implements Command{
             Deadline deadline = new Deadline(deadlineDescription, by);
             tasks.add(taskCount, deadline);
             Ui.printAcknowledgement("Deadline", deadlineDescription, taskCount);
+            Storage.writeFile(tasks);
         }
         catch (ByteBrewTimeException e) {
             System.out.println(e.getMessage());

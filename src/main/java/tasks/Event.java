@@ -19,13 +19,13 @@ public class Event extends Task{
      * Constructs a new {@code Event} task object.
      *
      * @param description Description of the {@code Event} task.
-     * @param strFrom Start time for the {@code Event} task.
-     * @param strTo End time for the {@code Event} task.
+     * @param stringFrom Start time for the {@code Event} task.
+     * @param stringTo End time for the {@code Event} task.
      */
-    public Event(String description, String strFrom, String strTo) throws ByteBrewTimeException{
+    public Event(String description, String stringFrom, String stringTo) throws ByteBrewTimeException{
         super(description);
-        this.from = parseTime(strFrom);
-        this.to = parseTime(strTo);
+        this.from = parseTime(stringFrom);
+        this.to = parseTime(stringTo);
     }
 
     /**

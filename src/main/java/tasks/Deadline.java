@@ -16,11 +16,11 @@ public class Deadline extends Task {
      * Constructs a new {@code Deadline} task object.
      *
      * @param description Description of the {@code Deadline} task.
-     * @param by Deadline for the {@code Deadline} task.
+     * @param stringBy Deadline for the {@code Deadline} task.
      */
-    public Deadline(String description, String strBy) throws ByteBrewTimeException {
+    public Deadline(String description, String stringBy) throws ByteBrewTimeException {
         super(description);
-        this.by = parseTime(strBy);
+        this.by = parseTime(stringBy);
     }
 
     /**

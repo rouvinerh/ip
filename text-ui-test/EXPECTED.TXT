@@ -6,10 +6,21 @@ __________________________________________________
 Data file NOT present. Creating one now!
 __________________________________________________
 __________________________________________________
-Use either 'todo', 'event' or 'deadline' to add an item to the task list!
+Use either 'todo', 'event' or 'deadline' to add a task to the task list!
 Deadline Usage: deadline return book /by 2024-08-05 1500
 Event Usage: event project meeting /from 2024-08-24 1500 /to 2024-08-24 1700
 Todo Usage: todo borrow book
+__________________________________________________
+Use 'mark' OR 'unmark' to mark tasks as done or undone!
+Mark usage: mark 2
+Unmark usage: unmark 3
+__________________________________________________
+Use 'delete' to delete tasks from the list!
+Delete usage: delete 1
+__________________________________________________
+Use 'find' to search for a task by ONE keyword
+Find usage: find book
+__________________________________________________
 Use 'bye' to end the bot!
 __________________________________________________
 __________________________________________________
@@ -121,7 +132,7 @@ Please specify a keyword!
 Usage: find book
 __________________________________________________
 __________________________________________________
-Please specifiy ONE keyword!
+Please specify ONE keyword!
 Usage: find book
 __________________________________________________
 __________________________________________________
@@ -130,10 +141,7 @@ Found no tasks with keyword of: 'duck'
 __________________________________________________
 __________________________________________________
 Finding matching tasks in list...
-1. [E] [ ] project meeting (from: Mon 2pm to: 4pm)
-__________________________________________________
-__________________________________________________
-Wrote tasks to ./bytebrew_data.txt!
+1. [E] [ ] project meeting (from: 2024-08-24 1500 to: 2024-08-24 1700)
 __________________________________________________
 __________________________________________________
 Bye! Hope to see you again soon!

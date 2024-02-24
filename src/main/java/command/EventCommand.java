@@ -99,6 +99,7 @@ public class EventCommand implements Command {
             Event event = new Event(eventDescription, timings[0], timings[1]);
             tasks.add(taskCount, event);
             Ui.printAcknowledgement("Event", eventDescription, taskCount);
+            Storage.writeFile(tasks);
         }
         catch (ByteBrewTimeException e) {
             System.out.println(e.getMessage());
