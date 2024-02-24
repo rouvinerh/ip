@@ -5,17 +5,27 @@ import utility.Parse;
 import bytebrew.ByteBrewException;
 import command.Command;
 
+/**
+ * Represents the ByteBrew bot.
+ */
 public class ByteBrew{
     private Storage storage;
     private TaskList tasks;
     private Ui ui;
 
+    /**
+     * Constructs a new {@code ByteBrew} object.
+     */
     public ByteBrew(){
         this.tasks = new TaskList();
         this.ui = new Ui();
         this.storage = new Storage();
     }
 
+    /**
+     * Runs the ByteBrew bot.
+     * @throws ByteBrewException If an error occurs during the execution of the command.
+     */
     public void run() throws ByteBrewException {
         ui.startUp();
         Storage.processFile(this.tasks);
@@ -33,6 +43,11 @@ public class ByteBrew{
         }
     }
 
+    /**
+     * Starts the ByteBrew bot by creating a {@code ByteBrew} object and calling {@code run}.
+     * @param args Command-line arguments from the user.
+     * @throws ByteBrewException If an error occurs during the execution of the command.
+     */
     public static void main(String[] args) throws ByteBrewException{
         new ByteBrew().run();
     }

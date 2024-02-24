@@ -13,8 +13,19 @@ import tasks.Todo;
 import utility.Constants;
 import bytebrew.ByteBrewException;
 
+/**
+ * Represents the Storage interface for the ByteBrew bot.
+ * Used for reading and writing from data files.
+ */
 public class Storage {
 
+    /**
+     * Checks whether a task is marked as done or not done by checking "X" character from data file.
+     * @param tasks The {@code TaskList} representing the current list of tasks.
+     * @param symbol The symbol indicating the task's completion status. "X" means the task is done. Otherwise, task is not done.
+     * @param taskCount The number of elements within {@code TaskList}.
+     * @throws ByteBrewException If an error occurs during the execution of the command.
+     */
     public static void checkIsDone(ArrayList<Task> tasks, String symbol, int taskCount) throws ByteBrewException {
         if (symbol.equals("X")) {
             tasks.get(taskCount).setStatus(true);
@@ -26,6 +37,12 @@ public class Storage {
             throw new ByteBrewException("Invalid symbol for isDone!");
         }
     }
+
+    /**
+     * Adds tasks to the task list based on data read from the data file.
+     * @param tasks The task list representing the current list of tasks.
+     * @throws ByteBrewException If an error occurs during the execution of the command.
+     */
     public static void processFile(ArrayList<Task> tasks) throws ByteBrewException {
         int taskCount = 0;
         try {
@@ -35,20 +52,20 @@ public class Storage {
 
             final Scanner READ_FILE = new Scanner(dataFile);
             while (READ_FILE.hasNext()) {
-                String[] task = READ_FILE.nextLine().split("\\|");
-                switch (task[0].trim()) {
+                String[] words = READ_FILE.nextLine().split("\\|");
+                switch (words[0].trim()) {
                 case "todo": {
-                    processToDo(tasks, task, taskCount);
+                    processToDo(tasks, words, taskCount);
                     break;
                 }
 
                 case "deadline": {
-                    processDeadline(tasks, task, taskCount);
+                    processDeadline(tasks, words, taskCount);
                     break;
                 }
 
                 case "event": {
-                    processEvent(tasks, task, taskCount);
+                    processEvent(tasks, words, taskCount);
                     break;
                 }
                 default: {
@@ -64,8 +81,16 @@ public class Storage {
         }
     }
 
-    public static void processEvent(ArrayList<Task> tasks, String[] task, int taskCount) throws ByteBrewException {
-        String[] eventInfo = task[2].split("from:");
+    /**
+     * Processes an {@code event} task by extracting the relevant fields from the data file contents.
+     * Creates an {@code event} object, adds it to the task list, then checks its completion status.
+     * @param tasks The {@code TaskList} representing the current list of tasks.
+     * @param words An array of words read from a line within the data file.
+     * @param taskCount The number of elements within {@code TaskList}.
+     * @throws ByteBrewException If an error occurs during the execution of the command.
+     */
+    public static void processEvent(ArrayList<Task> tasks, String[] words, int taskCount) throws ByteBrewException {
+        String[] eventInfo = words[2].split("from:");
 
         if (eventInfo.length < Constants.MIN_EVENT_INFO_LENGTH) {
             throw new ByteBrewException("Invalid event format");
@@ -82,11 +107,19 @@ public class Storage {
 
         Event event = new Event(eventDescription, from, to);
         tasks.add(event);
-        checkIsDone(tasks, task[1].trim(), taskCount);
+        checkIsDone(tasks, words[1].trim(), taskCount);
     }
 
-    public static void processDeadline(ArrayList<Task> tasks, String[] task, int taskCount) throws ByteBrewException {
-        String[] deadlineInfo = task[2].split("by:");
+    /**
+     * Processes an {@code deadline} task by extracting the relevant fields from the data file contents.
+     * Creates an {@code deadline} object, adds it to the task list, then checks its completion status.
+     * @param tasks The {@code TaskList} representing the current list of tasks.
+     * @param words An array of words read from a line within the data file.
+     * @param taskCount The number of elements within {@code TaskList}.
+     * @throws ByteBrewException If an error occurs during the execution of the command.
+     */
+    public static void processDeadline(ArrayList<Task> tasks, String[] words, int taskCount) throws ByteBrewException {
+        String[] deadlineInfo = words[2].split("by:");
         String by;
         if (deadlineInfo.length > Constants.MIN_DEADLINE_INFO_LENGTH) {
             by = deadlineInfo[1].trim().substring(0, deadlineInfo[1].length() - 1);
@@ -96,16 +129,30 @@ public class Storage {
         }
         Deadline deadline = new Deadline(deadlineInfo[0].trim(), by);
         tasks.add(deadline);
-        checkIsDone(tasks, task[1].trim(), taskCount);
+        checkIsDone(tasks, words[1].trim(), taskCount);
     }
 
-    public static void processToDo(ArrayList<Task> tasks, String[] task, int taskCount) throws ByteBrewException {
-        String toDoDescription = task[2];
+    /**
+     * Processes an {@code todo} task by extracting the relevant fields from the data file contents.
+     * Creates an {@code todo} object, adds it to the task list, then checks its completion status.
+     * @param tasks The {@code TaskList} representing the current list of tasks.
+     * @param words An array of words read from a line within the data file.
+     * @param taskCount The number of elements within {@code TaskList}.
+     * @throws ByteBrewException If an error occurs during the execution of the command.
+     */
+    public static void processToDo(ArrayList<Task> tasks, String[] words, int taskCount) throws ByteBrewException {
+        String toDoDescription = words[2];
         Todo newTodo = new Todo(toDoDescription);
         tasks.add(newTodo);
-        checkIsDone(tasks, task[1].trim(), taskCount);
+        checkIsDone(tasks, words[1].trim(), taskCount);
     }
 
+    /**
+     * Checks for the existence of the data file. If not created, creates one.
+     *
+     * @param dataFile The {@code File} object representing the data file.
+     * @throws IOException If an I/O error occurs while creating the data file.
+     */
     public static void checkDataFile(File dataFile) throws IOException {
         if (dataFile.createNewFile()) {
             System.out.println(Constants.HORIZONTAL_LINE);
@@ -118,6 +165,12 @@ public class Storage {
         }
     }
 
+    /**
+     * Writes the tasks from the task list to the data file.
+     *
+     * @param tasks The {@code TaskList} representing the current list of tasks.
+     * @throws ByteBrewException If an error occurs during the execution of the command.
+     */
     public static void writeFile(ArrayList<Task> tasks) throws ByteBrewException {
         try {
             FileWriter dataFile = new FileWriter(Constants.DATA_FILE_NAME);

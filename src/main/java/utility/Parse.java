@@ -15,11 +15,27 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
+/**
+ * Represents the user input parser of the ByteBrew bot.
+ */
 public class Parse {
+    /**
+     * Removes the first word from a string.
+     * @param input The input string from which the first word will be removed.
+     * @return The {@code input} string after the first word is removed.
+     */
     public static String removeFirstWord(String input){
         return input.split(" ",2)[1];
     }
 
+
+    /**
+     * Retrieves the task index from the user input when using the {@code mark}, {@code unmark} or {@code delete} commands.
+     * @param words Array of words obtained from the user input.
+     * @param taskCount The number of elements within {@code TaskList}.
+     * @return An integer representing the task index specified in the user input.
+     * @throws ByteBrewException If an error occurs during the execution of the command.
+     */
     public static int getTaskIndex(String[] words, int taskCount) throws ByteBrewException {
         try {
             int taskIndex = Integer.parseInt(words[1]) - 1;
@@ -34,8 +50,15 @@ public class Parse {
         }
     }
 
-    public static Command parseCommand(String command) throws ByteBrewException {
-        String[] words = command.split(" ");
+    /**
+     * Parses user input into words, then creates {@code Command} object based on details entered.
+     * Verifies user input to ensure that only valid commands are entered.
+     * @param userInput A string representing the user input.
+     * @return A {@code Command} object to be created.
+     * @throws ByteBrewException
+     */
+    public static Command parseCommand(String userInput) throws ByteBrewException {
+        String[] words = userInput.split(" ");
 
         switch (words[0]) {
         case "bye":
@@ -48,13 +71,13 @@ public class Parse {
             return new find(words);
 
         case "deadline":
-            return new DeadlineCommand(command, words);
+            return new DeadlineCommand(userInput, words);
 
         case "event":
-            return new EventCommand(command, words);
+            return new EventCommand(userInput, words);
 
         case "todo":
-            return new TodoCommand(command, words);
+            return new TodoCommand(userInput, words);
 
         case "list":
             return new ListCommand();

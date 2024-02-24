@@ -1,5 +1,8 @@
 package utility;
 
+/**
+ * Represents all constant variables used in the ByteBrew bot.
+ */
 public class Constants {
     public static final String HORIZONTAL_LINE = "__________________________________________________";
     public static final int MIN_INPUT_LENGTH = 2;
