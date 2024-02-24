@@ -1,9 +1,9 @@
 package bytebrew;
 
-import utility.constants;
+import utility.Constants;
 
 public class ByteBrewException extends Exception {
     public ByteBrewException(String message) {
-        super(constants.HORIZONTAL_LINE + "\n" + message + "\n" + constants.HORIZONTAL_LINE);
+        super(Constants.HORIZONTAL_LINE + "\n" + message + "\n" + Constants.HORIZONTAL_LINE);
     }
 }
