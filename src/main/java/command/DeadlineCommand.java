@@ -1,11 +1,12 @@
 package command;
 
 import bytebrew.ByteBrewException;
+import bytebrew.ByteBrewTimeException;
 import tasks.Deadline;
 import tasks.Task;
-import utility.parse;
+import utility.Parse;
 import utility.Ui;
-import utility.constants;
+import utility.Constants;
 import storage.Storage;
 import tasks.TaskList;
 import java.util.ArrayList;
@@ -14,7 +15,7 @@ import java.util.ArrayList;
 /**
  * Represents the {@code deadline} command for the ByteBrew bot.
  */
-public class deadline implements Command{
+public class DeadlineCommand implements Command{
 
     private final String INPUTLINE;
     private final String[] WORDS;
@@ -25,7 +26,7 @@ public class deadline implements Command{
      * @param input User input for the {@code deadline} command.
      * @param words Array of words obtained from the user input.
      */
-    public deadline(String input, String[] words) {
+    public DeadlineCommand(String input, String[] words) {
         this.INPUTLINE = input;
         this.WORDS = words;
     }
@@ -64,9 +65,9 @@ public class deadline implements Command{
      * @throws ByteBrewException If an error occurs during the execution of the command.
      */
     public static void addDeadline(String[] words, String inputLine, ArrayList<Task> tasks, int taskCount) throws ByteBrewException {
-        if (words.length < constants.MIN_INPUT_LENGTH) {
+        if (words.length < Constants.MIN_INPUT_LENGTH) {
             throw new ByteBrewException("Description of a deadline cannot be empty!\n" +
-                    "Usage: deadline return book /by Sunday");
+                    "Usage: deadline return book /by 2024-08-05 1500");
         }
         try {
             String[] deadlineInformation = getDeadlineInformation(inputLine);
@@ -76,9 +77,13 @@ public class deadline implements Command{
             tasks.add(taskCount, deadline);
             Ui.printAcknowledgement("Deadline", deadlineDescription, taskCount);
         }
+        catch (ByteBrewTimeException e) {
+            System.out.println(e.getMessage());
+        }
+
         catch (Exception e) {
             throw new ByteBrewException("Invalid syntax for deadline!\n" +
-                    "Usage: deadline return book /by Sunday");
+                                        "Usage: deadline return book /by 2024-08-05 1500");
         }
     }
 

@@ -6,8 +6,11 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-import tasks.*;
-import utility.constants;
+import tasks.Deadline;
+import tasks.Event;
+import tasks.Task;
+import tasks.Todo;
+import utility.Constants;
 import bytebrew.ByteBrewException;
 
 /**
@@ -43,7 +46,7 @@ public class Storage {
     public static void processFile(ArrayList<Task> tasks) throws ByteBrewException {
         int taskCount = 0;
         try {
-            File dataFile = new File(constants.DATA_FILE_NAME);
+            File dataFile = new File(Constants.DATA_FILE_NAME);
 
             checkDataFile(dataFile);
 
@@ -89,13 +92,13 @@ public class Storage {
     public static void processEvent(ArrayList<Task> tasks, String[] words, int taskCount) throws ByteBrewException {
         String[] eventInfo = words[2].split("from:");
 
-        if (eventInfo.length < constants.MIN_EVENT_INFO_LENGTH) {
+        if (eventInfo.length < Constants.MIN_EVENT_INFO_LENGTH) {
             throw new ByteBrewException("Invalid event format");
         }
         String eventDescription = eventInfo[0].trim();
 
         String[] eventTimes = eventInfo[1].split(" to:");
-        if (eventTimes.length < constants.MIN_EVENT_TIMES_LENGTH) {
+        if (eventTimes.length < Constants.MIN_EVENT_TIMES_LENGTH) {
             throw new ByteBrewException("Invalid event format");
         }
 
@@ -118,7 +121,7 @@ public class Storage {
     public static void processDeadline(ArrayList<Task> tasks, String[] words, int taskCount) throws ByteBrewException {
         String[] deadlineInfo = words[2].split("by:");
         String by;
-        if (deadlineInfo.length > constants.MIN_DEADLINE_INFO_LENGTH) {
+        if (deadlineInfo.length > Constants.MIN_DEADLINE_INFO_LENGTH) {
             by = deadlineInfo[1].trim().substring(0, deadlineInfo[1].length() - 1);
         }
         else {
@@ -152,13 +155,13 @@ public class Storage {
      */
     public static void checkDataFile(File dataFile) throws IOException {
         if (dataFile.createNewFile()) {
-            System.out.println(constants.HORIZONTAL_LINE);
+            System.out.println(Constants.HORIZONTAL_LINE);
             System.out.println("Data file NOT present. Creating one now!");
-            System.out.println(constants.HORIZONTAL_LINE);
+            System.out.println(Constants.HORIZONTAL_LINE);
         } else {
-            System.out.println(constants.HORIZONTAL_LINE);
+            System.out.println(Constants.HORIZONTAL_LINE);
             System.out.println("Data file present!");
-            System.out.println(constants.HORIZONTAL_LINE);
+            System.out.println(Constants.HORIZONTAL_LINE);
         }
     }
 
@@ -170,15 +173,14 @@ public class Storage {
      */
     public static void writeFile(ArrayList<Task> tasks) throws ByteBrewException {
         try {
-            FileWriter dataFile = new FileWriter(constants.DATA_FILE_NAME);
-
+            FileWriter dataFile = new FileWriter(Constants.DATA_FILE_NAME);
             for (Task t : tasks) {
                 dataFile.write(t.getType() + "|" + t.getStatusIcon() + "|" + t.getDescription() + " " +
                         t.getTimes() + '\n');
             }
-            System.out.println(constants.HORIZONTAL_LINE);
-            System.out.println("Wrote tasks to " + constants.DATA_FILE_NAME + '!');
-            System.out.println(constants.HORIZONTAL_LINE);
+            System.out.println(Constants.HORIZONTAL_LINE);
+            System.out.println("Wrote tasks to " + Constants.DATA_FILE_NAME + '!');
+            System.out.println(Constants.HORIZONTAL_LINE);
             dataFile.close();
         }
         catch (IOException e) {

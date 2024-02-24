@@ -8,7 +8,7 @@ import tasks.TaskList;
 /**
  * Represents the {@code bye} command for the ByteBrew bot.
  */
-public class bye implements Command{
+public class ByeCommand implements Command{
 
     /**
      * Executes the {@code bye} command.

@@ -3,13 +3,13 @@ package command;
 import storage.Storage;
 import tasks.TaskList;
 import utility.Ui;
-import utility.constants;
+import utility.Constants;
 import bytebrew.ByteBrewException;
 
 /**
  * Represents the {@code list} command for the ByteBrew bot.
  */
-public class list implements Command{
+public class ListCommand implements Command{
 
     /**
      * Executes the {@code list} command.
@@ -26,14 +26,14 @@ public class list implements Command{
         if (taskCount == 0) {
             throw new ByteBrewException("There is nothing in the task list!");
         }
-        System.out.println(constants.HORIZONTAL_LINE);
-        System.out.println("Here's the task list: ");
+        System.out.println(Constants.HORIZONTAL_LINE);
+        System.out.println("Here's the task list:");
 
         for (int i = 0; i < taskCount; i++) {
             System.out.println((i + 1) + ". "  + tasks.get(i));
         }
 
-        System.out.println(constants.HORIZONTAL_LINE);
+        System.out.println(Constants.HORIZONTAL_LINE);
     }
 
     /**

@@ -1,6 +1,6 @@
 package bytebrew;
 
-import utility.constants;
+import utility.Constants;
 
 /**
  * Represents a custom exception class for ByteBrew bot.
@@ -13,6 +13,6 @@ public class ByteBrewException extends Exception {
      * @param message The error message of the exception.
      */
     public ByteBrewException(String message) {
-        super(constants.HORIZONTAL_LINE + "\n" + message + "\n" + constants.HORIZONTAL_LINE);
+        super(Constants.HORIZONTAL_LINE + "\n" + message + "\n" + Constants.HORIZONTAL_LINE);
     }
 }
