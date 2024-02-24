@@ -5,14 +5,12 @@ import command.Command;
 import command.DeadlineCommand;
 import command.DeleteCommand;
 import command.EventCommand;
+import command.FindCommand;
 import command.HelpCommand;
 import command.ListCommand;
 import command.MarkCommand;
 import command.TodoCommand;
 import command.ByeCommand;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeParseException;
 
 /**
  * Represents the user input parser of the ByteBrew bot.
@@ -65,6 +63,9 @@ public class Parse {
 
         case "help":
             return new HelpCommand();
+
+        case "find":
+            return new FindCommand(words);
 
         case "deadline":
             return new DeadlineCommand(userInput, words);
