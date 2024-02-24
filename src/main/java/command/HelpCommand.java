@@ -32,11 +32,24 @@ public class HelpCommand implements Command {
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) {
         System.out.println(Constants.HORIZONTAL_LINE);
-        System.out.println("Use either 'todo', 'event' or 'deadline' to add an item to the task list!");
+        System.out.println("Use either 'todo', 'event' or 'deadline' to add a task to the task list!");
         System.out.println("Deadline Usage: deadline return book /by 2024-08-05 1500");
         System.out.println("Event Usage: event project meeting /from 2024-08-24 1500 /to 2024-08-24 1700");
         System.out.println("Todo Usage: todo borrow book");
+        System.out.println(Constants.HORIZONTAL_LINE);
+        System.out.println("Use 'mark' OR 'unmark' to mark tasks as done or undone!");
+        System.out.println("Mark usage: mark 2");
+        System.out.println("Unmark usage: unmark 3");
+        System.out.println(Constants.HORIZONTAL_LINE);
+        System.out.println("Use 'delete' to delete tasks from the list!");
+        System.out.println("Delete usage: delete 1");
+        System.out.println(Constants.HORIZONTAL_LINE);
+        System.out.println("Use 'find' to search for a task by ONE keyword");
+        System.out.println("Find usage: find book");
+        System.out.println(Constants.HORIZONTAL_LINE);
         System.out.println("Use 'bye' to end the bot!");
         System.out.println(Constants.HORIZONTAL_LINE);
+
+
     }
 }

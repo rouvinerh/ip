@@ -4,7 +4,6 @@ import utility.Constants;
 
 /**
  * Represents a custom exception class for ByteBrew bot.
- *
  */
 public class ByteBrewException extends Exception {
     /**
