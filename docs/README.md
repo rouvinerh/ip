@@ -185,7 +185,7 @@ __________________________________________________
 
 Marks a task as undone. Task list will use a blank space character to denote a task is marked as undone.
 
-Format: `mark INDEX`.
+Format: `unmark INDEX`.
 * `INDEX` represents the task number. Check `list` to see each number.
 
 Example:
