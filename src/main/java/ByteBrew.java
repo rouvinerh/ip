@@ -24,6 +24,7 @@ public class ByteBrew{
 
     /**
      * Runs the ByteBrew bot.
+     *
      * @throws ByteBrewException If an error occurs during the execution of the command.
      */
     public void run() throws ByteBrewException {
@@ -45,6 +46,7 @@ public class ByteBrew{
 
     /**
      * Starts the ByteBrew bot by creating a {@code ByteBrew} object and calling {@code run}.
+     *
      * @param args Command-line arguments from the user.
      * @throws ByteBrewException If an error occurs during the execution of the command.
      */

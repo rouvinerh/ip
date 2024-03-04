@@ -21,6 +21,7 @@ public class Storage {
 
     /**
      * Checks whether a task is marked as done or not done by checking "X" character from data file.
+     *
      * @param tasks The {@code TaskList} representing the current list of tasks.
      * @param symbol The symbol indicating the task's completion status. "X" means the task is done. Otherwise, task is not done.
      * @param taskCount The number of elements within {@code TaskList}.
@@ -40,6 +41,7 @@ public class Storage {
 
     /**
      * Adds tasks to the task list based on data read from the data file.
+     *
      * @param tasks The task list representing the current list of tasks.
      * @throws ByteBrewException If an error occurs during the execution of the command.
      */
@@ -84,6 +86,7 @@ public class Storage {
     /**
      * Processes an {@code event} task by extracting the relevant fields from the data file contents.
      * Creates an {@code event} object, adds it to the task list, then checks its completion status.
+     *
      * @param tasks The {@code TaskList} representing the current list of tasks.
      * @param words An array of words read from a line within the data file.
      * @param taskCount The number of elements within {@code TaskList}.
@@ -113,6 +116,7 @@ public class Storage {
     /**
      * Processes an {@code deadline} task by extracting the relevant fields from the data file contents.
      * Creates an {@code deadline} object, adds it to the task list, then checks its completion status.
+     *
      * @param tasks The {@code TaskList} representing the current list of tasks.
      * @param words An array of words read from a line within the data file.
      * @param taskCount The number of elements within {@code TaskList}.
@@ -135,6 +139,7 @@ public class Storage {
     /**
      * Processes an {@code todo} task by extracting the relevant fields from the data file contents.
      * Creates an {@code todo} object, adds it to the task list, then checks its completion status.
+     *
      * @param tasks The {@code TaskList} representing the current list of tasks.
      * @param words An array of words read from a line within the data file.
      * @param taskCount The number of elements within {@code TaskList}.

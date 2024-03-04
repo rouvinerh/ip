@@ -67,6 +67,7 @@ public class EventCommand implements Command {
 
     /**
      * Extracts and return event times from user input.
+     *
      * @param inputLine User input for the {@code event} command.
      * @return An array containing the {@code from} and {@code to} time for the event.
      */
@@ -82,6 +83,7 @@ public class EventCommand implements Command {
 
     /**
      * Adds an {@code event} task to the task list.
+     *
      * @param words Array of words obtained from the user input.
      * @param inputLine User input for the deadline command.
      * @param tasks The {@code TaskList} representing the current list of tasks.

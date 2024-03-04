@@ -25,6 +25,7 @@ public class Deadline extends Task {
 
     /**
      * Retrieves a string representing the task type.
+     *
      * @return A string 'deadline' representing {@code Deadline} tasks.
      */
     @Override
@@ -34,6 +35,7 @@ public class Deadline extends Task {
 
     /**
      * Formats the actual deadline within from the {@code Deadline} task.
+     *
      * @return A formatted string with the deadline.
      */
     @Override
@@ -45,6 +47,7 @@ public class Deadline extends Task {
 
     /**
      * Retrieves the string representation of the {@code Deadline} task.
+     *
      * @return A foramtted string representing the {@code Deadline} task, inclusive of the symbol representing completion status, description and the actual deadline.
      */
     @Override

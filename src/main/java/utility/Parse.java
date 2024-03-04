@@ -18,6 +18,7 @@ import command.ByeCommand;
 public class Parse {
     /**
      * Removes the first word from a string.
+     *
      * @param input The input string from which the first word will be removed.
      * @return The {@code input} string after the first word is removed.
      */
@@ -28,6 +29,7 @@ public class Parse {
 
     /**
      * Retrieves the task index from the user input when using the {@code mark}, {@code unmark} or {@code delete} commands.
+     *
      * @param words Array of words obtained from the user input.
      * @param taskCount The number of elements within {@code TaskList}.
      * @return An integer representing the task index specified in the user input.
@@ -50,6 +52,7 @@ public class Parse {
     /**
      * Parses user input into words, then creates {@code Command} object based on details entered.
      * Verifies user input to ensure that only valid commands are entered.
+     *
      * @param userInput A string representing the user input.
      * @return A {@code Command} object to be created.
      * @throws ByteBrewException

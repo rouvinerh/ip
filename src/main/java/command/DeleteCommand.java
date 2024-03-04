@@ -19,6 +19,7 @@ public class DeleteCommand implements Command {
 
     /**
      * Constructs a new {@code delete} command object with user input.
+     *
      * @param words Array of words obtained from the user input.
      */
     public DeleteCommand(String[] words) {

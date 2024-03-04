@@ -32,6 +32,7 @@ public class Ui {
 
     /**
      * Prints the acknowledgement to indicate a successful adding of a task to the task list.
+     *
      * @param taskType A string representing the type of task added.
      * @param description A string representing the description of the task added.
      * @param taskCount An integer representing the number of tasks there are within the task list.
@@ -46,6 +47,7 @@ public class Ui {
 
     /**
      * Reads one line from user input and removes excess empty spaces.
+     *
      * @return A string representing the line the user entered
      */
     public String readCommand() {
@@ -54,6 +56,7 @@ public class Ui {
 
     /**
      * Prints out the error message if any.
+     * 
      * @param error A string representing the error message to print.
      */
     public void showError(String error) {

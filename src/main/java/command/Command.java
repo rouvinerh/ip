@@ -18,6 +18,7 @@ public interface Command {
 
     /**
      * Executes the command entered.
+     *
      * @param tasks   The {@code TaskList} representing the current list of tasks.
      * @param ui      The {@code Ui} instance for the user interface of the ByteBrew bot.
      * @param storage The {@code Storage} instance for managing all reading and writing of data from files.

@@ -21,15 +21,20 @@ public class Event extends Task{
      * @param description Description of the {@code Event} task.
      * @param stringFrom Start time for the {@code Event} task.
      * @param stringTo End time for the {@code Event} task.
+     * @throws ByteBrewTimeException If 'to' time is before 'from' time.
      */
     public Event(String description, String stringFrom, String stringTo) throws ByteBrewTimeException{
         super(description);
         this.from = parseTime(stringFrom);
         this.to = parseTime(stringTo);
+        if (to.isBefore(from)) {
+            throw new ByteBrewTimeException("'to' time cannot be before 'from' time!");
+        }
     }
 
     /**
      * Retrieves a string representing the task type.
+     *
      * @return A string 'event' representing {@code Event} tasks.
      */
     @Override
@@ -39,6 +44,7 @@ public class Event extends Task{
 
     /**
      * Retrieves the string representation of the {@code Event} task.
+     *
      * @return A foramtted string representing the {@code Event} task, inclusive of the symbol representing completion status, description, start and end times.
      */
     @Override
@@ -51,6 +57,7 @@ public class Event extends Task{
 
     /**
      * Formats the start and end times from the {@code Event} task.
+     *
      * @return A formatted string with the start and end times.
      */
     @Override

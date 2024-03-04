@@ -49,7 +49,5 @@ public class HelpCommand implements Command {
         System.out.println(Constants.HORIZONTAL_LINE);
         System.out.println("Use 'bye' to end the bot!");
         System.out.println(Constants.HORIZONTAL_LINE);
-
-
     }
 }

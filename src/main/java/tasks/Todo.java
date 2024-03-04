@@ -17,6 +17,7 @@ public class Todo extends Task{
 
     /**
      * Retrieves a string representing the task type.
+     *
      * @return A string 'todo' representing {@code Todo} tasks.
      */
     @Override
@@ -27,6 +28,7 @@ public class Todo extends Task{
 
     /**
      * Retrieves a string representing the time within a {@code Todo} object.
+     *
      * @return An empty string since {@code Todo} has no time stored.
      */
     @Override
@@ -36,6 +38,7 @@ public class Todo extends Task{
 
     /**
      * Retrieves the string representation of the {@code Todo} task.
+     *
      * @return A formatted string representing the {@code Todo} task, inclusive of the symbol representing completion status and description.
      */
     @Override
