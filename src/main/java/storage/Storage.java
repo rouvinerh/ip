@@ -35,7 +35,7 @@ public class Storage {
             tasks.get(taskCount).setStatus(false);
         }
         else {
-            throw new ByteBrewException("Invalid symbol for isDone!");
+            throw new ByteBrewException("Invalid isDone symbol!");
         }
     }
 
@@ -43,15 +43,12 @@ public class Storage {
      * Adds tasks to the task list based on data read from the data file.
      *
      * @param tasks The task list representing the current list of tasks.
-     * @throws ByteBrewException If an error occurs during the execution of the command.
      */
-    public static void processFile(ArrayList<Task> tasks) throws ByteBrewException {
+    public static void processFile(ArrayList<Task> tasks)  {
         int taskCount = 0;
         try {
             File dataFile = new File(Constants.DATA_FILE_NAME);
-
             checkDataFile(dataFile);
-
             final Scanner READ_FILE = new Scanner(dataFile);
             while (READ_FILE.hasNext()) {
                 String[] words = READ_FILE.nextLine().split("\\|");
@@ -71,15 +68,20 @@ public class Storage {
                     break;
                 }
                 default: {
-                    throw new ByteBrewException("Invalid input from file!\n" +
-                            "Errored at taskCount = " + taskCount);
+                    System.out.println(Constants.HORIZONTAL_LINE);
+                    System.out.println("Invalid task type at task: " + (taskCount + 1) + "!");
+                    System.out.println("Valid tasks are: event, deadline and todo");
+                    System.out.println(Constants.HORIZONTAL_LINE);
+                    System.exit(1);
                 }
                 }
                 taskCount += 1;
             }
-        } catch (Exception e) {
-            throw new ByteBrewException("File read error occurred!\n" +
-                    "Errored at taskCount = " + taskCount);
+        }
+         catch (Exception e) {
+            System.out.println("Task input error at task: "  + (taskCount + 1) + "!");
+            System.out.println(e.getMessage());
+            System.exit(1);
         }
     }
 
@@ -95,19 +97,25 @@ public class Storage {
     public static void processEvent(ArrayList<Task> tasks, String[] words, int taskCount) throws ByteBrewException {
         String[] eventInfo = words[2].split("from:");
 
-        if (eventInfo.length < Constants.MIN_EVENT_INFO_LENGTH) {
-            throw new ByteBrewException("Invalid event format");
+        if (eventInfo[0].isEmpty()) {
+            throw new ByteBrewException("Description of an event cannot be empty!");
         }
-        String eventDescription = eventInfo[0].trim();
 
+        if (eventInfo.length < Constants.MIN_EVENT_INFO_LENGTH) {
+            throw new ByteBrewException("Invalid event format!\n" +
+                                        "Example format: event| |project meeting from: 2024-08-24 1500 to: 2024-08-24 1600");
+        }
+
+        String eventDescription = eventInfo[0].trim();
         String[] eventTimes = eventInfo[1].split(" to:");
+
         if (eventTimes.length < Constants.MIN_EVENT_TIMES_LENGTH) {
-            throw new ByteBrewException("Invalid event format");
+            throw new ByteBrewException("Invalid event time format!\n" +
+                                        "Example format: event| |project meeting from: 2024-08-24 1500 to: 2024-08-24 1600");
         }
 
         String from = eventTimes[0].trim();
         String to = eventTimes[1].trim();
-
         Event event = new Event(eventDescription, from, to);
         tasks.add(event);
         checkIsDone(tasks, words[1].trim(), taskCount);
@@ -125,15 +133,23 @@ public class Storage {
     public static void processDeadline(ArrayList<Task> tasks, String[] words, int taskCount) throws ByteBrewException {
         String[] deadlineInfo = words[2].split("by:");
         String by;
-        if (deadlineInfo.length > Constants.MIN_DEADLINE_INFO_LENGTH) {
+
+        if (deadlineInfo[0].isEmpty()) {
+            throw new ByteBrewException("Description of a deadline cannot be empty!");
+        }
+
+        try {
             by = deadlineInfo[1].trim().substring(0, deadlineInfo[1].length() - 1);
         }
-        else {
-            throw new ByteBrewException("Invalid deadline format!");
+        catch (Exception e) {
+            throw new ByteBrewException("Invalid deadline format!\n" +
+                                        "Example format: deadline| |return book by: 2024-08-05 0000");
         }
+
         Deadline deadline = new Deadline(deadlineInfo[0].trim(), by);
         tasks.add(deadline);
         checkIsDone(tasks, words[1].trim(), taskCount);
+
     }
 
     /**
@@ -147,26 +163,44 @@ public class Storage {
      */
     public static void processToDo(ArrayList<Task> tasks, String[] words, int taskCount) throws ByteBrewException {
         String toDoDescription = words[2];
-        Todo newTodo = new Todo(toDoDescription);
-        tasks.add(newTodo);
-        checkIsDone(tasks, words[1].trim(), taskCount);
+        if (toDoDescription.isEmpty()) {
+            throw new ByteBrewException("Description of a todo cannot be empty!");
+        }
+
+        try {
+            Todo newTodo = new Todo(toDoDescription);
+            tasks.add(newTodo);
+            checkIsDone(tasks, words[1].trim(), taskCount);
+        }
+        catch (Exception e) {
+            throw new ByteBrewException("Invalid todo format!\n"+
+                                        "Example format: todo| |return book");
+        }
     }
 
     /**
-     * Checks for the existence of the data file. If not created, creates one.
+     * Checks for the existence of the data file. If not created, it creates one.
      *
      * @param dataFile The {@code File} object representing the data file.
-     * @throws IOException If an I/O error occurs while creating the data file.
      */
-    public static void checkDataFile(File dataFile) throws IOException {
-        if (dataFile.createNewFile()) {
+    public static void checkDataFile(File dataFile) {
+        try {
+            if (dataFile.createNewFile()) {
+                System.out.println(Constants.HORIZONTAL_LINE);
+                System.out.println("Data file NOT present. Creating one now!");
+                System.out.println(Constants.HORIZONTAL_LINE);
+            }
+            else {
+                System.out.println(Constants.HORIZONTAL_LINE);
+                System.out.println("Data file present!");
+                System.out.println(Constants.HORIZONTAL_LINE);
+            }
+        }
+        catch (IOException e) {
             System.out.println(Constants.HORIZONTAL_LINE);
-            System.out.println("Data file NOT present. Creating one now!");
+            System.out.println("File creation error");
             System.out.println(Constants.HORIZONTAL_LINE);
-        } else {
-            System.out.println(Constants.HORIZONTAL_LINE);
-            System.out.println("Data file present!");
-            System.out.println(Constants.HORIZONTAL_LINE);
+            System.exit(1);
         }
     }
 
