@@ -4,7 +4,6 @@ package tasks;
  * Represents the {@code Todo} task for the ByteBrew bot.
  */
 public class Todo extends Task{
-    private String type = "todo";
 
     /**
      * Constructs a new {@code Todo} task object.
@@ -22,7 +21,7 @@ public class Todo extends Task{
      */
     @Override
     public String getType() {
-        return this.type;
+        return "todo";
     }
 
 

@@ -11,9 +11,8 @@ import java.time.format.DateTimeFormatter;
  * Represents the {@code Event} task for the ByteBrew bot.
  */
 public class Event extends Task{
-    private LocalDateTime from;
-    private LocalDateTime to;
-    private String type = "event";
+    protected LocalDateTime from;
+    protected LocalDateTime to;
 
     /**
      * Constructs a new {@code Event} task object.
@@ -39,18 +38,18 @@ public class Event extends Task{
      */
     @Override
     public String getType() {
-        return this.type;
+        return "event";
     }
 
     /**
      * Retrieves the string representation of the {@code Event} task.
      *
-     * @return A foramtted string representing the {@code Event} task, inclusive of the symbol representing completion status, description, start and end times.
+     * @return A formatted string representing the {@code Event} task, inclusive of the symbol representing completion status, description, start and end times.
      */
     @Override
     public String getTimes() {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
-        String formattedFrom = this.from.format(formatter).replace('T', ' ');;
+        String formattedFrom = this.from.format(formatter).replace('T', ' ');
         String formattedTo = this.to.format(formatter).replace('T', ' ');
         return "from: " + formattedFrom + " to: " + formattedTo;
     }

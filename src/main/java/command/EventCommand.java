@@ -15,7 +15,7 @@ import java.util.ArrayList;
  * Represents the {@code event} command for the ByteBrew bot.
  */
 public class EventCommand implements Command {
-    private final String INPUTLINE;
+    private final String INPUT;
     private final String[] WORDS;
 
     /**
@@ -25,7 +25,7 @@ public class EventCommand implements Command {
      * @param words Array of words obtained from the user input.
      */
     public EventCommand(String input, String[] words) {
-        this.INPUTLINE = input;
+        this.INPUT = input;
         this.WORDS = words;
     }
 
@@ -40,7 +40,7 @@ public class EventCommand implements Command {
      */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws ByteBrewException {
-        addEvent(this.WORDS, this.INPUTLINE, tasks, tasks.size());
+        addEvent(this.WORDS, this.INPUT, tasks, tasks.size());
     }
 
     /**

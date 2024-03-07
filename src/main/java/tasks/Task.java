@@ -5,8 +5,7 @@ package tasks;
  */
 public class Task {
     public boolean isDone;
-    private String description;
-    private String type = "task";
+    protected String description;
 
     /**
      * Constructs a new {@code Task} object.
@@ -51,7 +50,7 @@ public class Task {
      * @return A string 'task' representing {@code Task} tasks.
      */
     public String getType() {
-        return this.type;
+        return "task";
     }
 
     /**
@@ -62,14 +61,4 @@ public class Task {
     public String getTimes() {
         return "";
     }
-
-    /**
-     * Returns a formatted string representing the {@code Task} object.
-     *
-     * @return A string representing a {@code Task} object.
-     */
-    public String printTask() {
-        return "[" + getStatusIcon() + "]" + getDescription();
-    }
-
 }

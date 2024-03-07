@@ -9,8 +9,7 @@ import java.time.format.DateTimeParseException;
  * Represents the {@code Deadline} task for the ByteBrew bot.
  */
 public class Deadline extends Task {
-    private LocalDateTime by;
-    private String type = "deadline";
+    protected LocalDateTime by;
 
     /**
      * Constructs a new {@code Deadline} task object.
@@ -30,7 +29,7 @@ public class Deadline extends Task {
      */
     @Override
     public String getType() {
-        return this.type;
+        return "deadline";
     }
 
     /**
@@ -48,7 +47,7 @@ public class Deadline extends Task {
     /**
      * Retrieves the string representation of the {@code Deadline} task.
      *
-     * @return A foramtted string representing the {@code Deadline} task, inclusive of the symbol representing completion status, description and the actual deadline.
+     * @return A formatted string representing the {@code Deadline} task, inclusive of the symbol representing completion status, description and the actual deadline.
      */
     @Override
     public String toString() {

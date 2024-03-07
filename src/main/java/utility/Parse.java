@@ -55,7 +55,7 @@ public class Parse {
      *
      * @param userInput A string representing the user input.
      * @return A {@code Command} object to be created.
-     * @throws ByteBrewException
+     * @throws ByteBrewException If there is any error during the execution.
      */
     public static Command parseCommand(String userInput) throws ByteBrewException {
         String[] words = userInput.split(" ");

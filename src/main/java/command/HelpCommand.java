@@ -1,6 +1,5 @@
 package command;
 
-import bytebrew.ByteBrewException;
 import utility.Constants;
 import storage.Storage;
 import utility.Ui;

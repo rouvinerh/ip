@@ -16,7 +16,7 @@ import java.util.ArrayList;
  */
 public class DeadlineCommand implements Command{
 
-    private final String INPUTLINE;
+    private final String INPUT;
     private final String[] WORDS;
 
     /**
@@ -26,7 +26,7 @@ public class DeadlineCommand implements Command{
      * @param words Array of words obtained from the user input.
      */
     public DeadlineCommand(String input, String[] words) {
-        this.INPUTLINE = input;
+        this.INPUT = input;
         this.WORDS = words;
     }
 
@@ -41,7 +41,7 @@ public class DeadlineCommand implements Command{
      */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws ByteBrewException {
-        addDeadline(this.WORDS, this.INPUTLINE, tasks, tasks.size());
+        addDeadline(this.WORDS, this.INPUT, tasks, tasks.size());
     }
 
     /**

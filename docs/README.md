@@ -14,7 +14,7 @@ ByteBrew is a bot used for managing a task list, optimised for use via a Command
   - [Deleting Tasks: `delete`](#deleting-tasks-delete)
   - [Find a Task: `find`](#find-a-task-find)
   - [Print Help Message: `help`](#print-help-message-help)
-  - [Exit and Write Data: `bye`](#exit-and-write-data-bye)
+  - [Exit and Write Data: `bye`](#exit-bot-bye)
 * [Frequently Asked Questions (FAQ)](#faq)
 
 ## Quick Start
@@ -24,7 +24,7 @@ ByteBrew is a bot used for managing a task list, optimised for use via a Command
 3. Copy the file to the folder you want to use as the home folder for ByteBrew.
 4. Open a command terminal (either cmd.exe or bash), `cd` to the folder with `ip.jar` in it, and use `java -jar ip.jar` to run the application.
 5. The welcome message for ByteBrew should be printed to the screen.
-6. Type commands in the command line and press Enter to execute it. Using help and pressing Enter will print the help message.
+6. Type commands in the command line and press Enter to execute it. Using `help` and pressing Enter will print the help message.
 
 ```
 $ java -jar ip.jar
@@ -119,6 +119,7 @@ Format: `event DESCRIPTION /by STARTTIME /to ENDTIME`
 * `DESCRIPTION` represents the task description.
 * `STARTTIME` and `ENDTIME` are in `yyyy-mm-dd HHmm` format.
 * Note that `STARTTIME` and `ENDTIME` specified **must NOT be before current time**.
+* Note that `ENDTIME` **cannot be before** `STARTTIME`. 
 
 Example:
 * `event project meeting /from 2024-08-24 1500 /to 2024-08-24 1700`
@@ -327,11 +328,11 @@ __________________________________________________
 
 ## FAQ
 
-1. If I exit the bot using anything other than `bye`, will I lose data?
+### If I exit the bot using anything other than `bye`, will I lose data?
 
-No. Data will be saved each time the task list is edited.
+No. Data will be saved each time the task list is edited. 
 
-2. How do I transfer data to other machines?
+### How do I transfer data to other machines?
 
 Copy the `ip.jar` file and `bytebrew_data.txt` to the other machine. Place both of the files in the same directory, and ByteBrew will read the data file.
 

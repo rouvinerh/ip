@@ -9,9 +9,9 @@ import command.Command;
  * Represents the ByteBrew bot.
  */
 public class ByteBrew{
-    private Storage storage;
-    private TaskList tasks;
-    private Ui ui;
+    protected Storage storage;
+    protected TaskList tasks;
+    protected Ui ui;
 
     /**
      * Constructs a new {@code ByteBrew} object.
@@ -19,16 +19,13 @@ public class ByteBrew{
     public ByteBrew(){
         this.tasks = new TaskList();
         this.ui = new Ui();
-        this.storage = new Storage();
     }
 
     /**
      * Runs the ByteBrew bot.
-     *
-     * @throws ByteBrewException If an error occurs during the execution of the command.
      */
-    public void run() throws ByteBrewException {
-        ui.startUp();
+    public void run() {
+        Ui.startUp();
         Storage.processFile(this.tasks);
         boolean isExit = false;
         while (!isExit) {
@@ -48,9 +45,8 @@ public class ByteBrew{
      * Starts the ByteBrew bot by creating a {@code ByteBrew} object and calling {@code run}.
      *
      * @param args Command-line arguments from the user.
-     * @throws ByteBrewException If an error occurs during the execution of the command.
      */
-    public static void main(String[] args) throws ByteBrewException{
+    public static void main(String[] args) {
         new ByteBrew().run();
     }
 }
